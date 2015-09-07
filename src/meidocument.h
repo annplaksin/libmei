@@ -110,8 +110,9 @@ class MEI_EXPORT MeiDocument {
          */
         MeiElement* lookBack(MeiElement* from, std::string name);
 
-		//Had to be moved from private to public because it is used in meielement.cpp line:438 (AP)
-		void updateFlattenedTree();
+		    //Moved up to try to prevent a Visual Studio 2015 Intellisense Error in meielement.cpp
+        friend void MeiElement::updateDocument();
+		
 
     private:
         /** \brief Flattens the current document tree
@@ -119,8 +120,8 @@ class MEI_EXPORT MeiDocument {
          * For now, this function naively updates the flattened document tree by re-initializing the vector.
          * Based on performance constraints, this can be optimized accordingly
          */
-        friend void MeiElement::updateDocument();
         
+        void updateFlattenedTree();
 
         MeiElement* getElementById(std::string id, MeiElement* from);
         /** The version of this MEI document. */
