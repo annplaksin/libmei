@@ -35,3 +35,7 @@ libmei.vs/x64/
 libmei.vs/Debug/
 libmei.vs/mei/x64/
 libmei.vs/packages
+libmei.vs/mei/Release/
+libmei.vs/Release/
+libmei.vs/gtest/x64/Release/
+*.tlog
