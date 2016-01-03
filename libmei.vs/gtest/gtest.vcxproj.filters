@@ -68,6 +68,5 @@
     <None Include="..\..\test\sibmei.mei">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>
