@@ -26,17 +26,17 @@ namespace mei
   /// </summary>
   static class AttCommon_extensions
   {
-    //Start of @n
+    #region n
     public static void SetN(this IAttCommon e, string _val)
     {
       e.SetAttribute("n", _val);
-      
+
     }
 
     public static XAttribute GetN(this IAttCommon e)
     {
       return e.GetAttribute("n");
-      
+
     }
 
     public static bool HasN(this IAttCommon e)
@@ -48,6 +48,6 @@ namespace mei
     {
       e.RemoveAttribute("n");
     }
-    //End of @n
+    #endregion
   }
 }
