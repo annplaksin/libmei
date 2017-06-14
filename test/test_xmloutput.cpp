@@ -51,7 +51,7 @@ TEST(TestXmlMeiExport, ExportToString) {
     MeiElement *root = mei::MeiFactory::createInstance("mei", "myid");
     d->setRootElement(root);
 
-    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"2013\" />\n";
+    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"3.0.0\" />\n";
     
     string ret = mei::documentToText(d);
 
@@ -68,7 +68,7 @@ TEST(TestXmlMeiExport, ExportValueAndTail) {
     note->setTail("tail");
     root->addChild(note);
 
-    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"2013\">\n\t<note xml:id=\"noteid\">value</note>tail</mei>\n";
+    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"3.0.0\">\n\t<note xml:id=\"noteid\">value</note>tail</mei>\n";
 
     string ret = mei::documentToText(d);
     ASSERT_EQ(expected, ret);
@@ -84,7 +84,7 @@ TEST(TestXmlMeiExport, ExportComment) {
     comment->setTail("tail");
     root->addChild(comment);
 
-    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"2013\">\n\t<!--comment-->tail</mei>\n";
+    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"3.0.0\">\n\t<!--comment-->tail</mei>\n";
     string ret = mei::documentToText(d);
     ASSERT_EQ(expected, ret);
 }
@@ -100,7 +100,7 @@ TEST(TestXmlMeiExport, ExportNamespace) {
     root->addAttribute(xlink);
     root->addAttribute(attr);
 
-    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"2013\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:title=\"my awesome thing\" />\n";
+    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"3.0.0\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:title=\"my awesome thing\" />\n";
     string ret = mei::documentToText(d);
     ASSERT_EQ(expected, ret);
 }
@@ -117,7 +117,7 @@ TEST(TestXmlMeiExport, ExportNamespace2) {
     music->setValue("mus!");
     root->addChild(music);
 
-    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"2013\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n\t<music xml:id=\"musid\" xlink:title=\"my awesome thing\">mus!</music>\n</mei>\n";
+    string expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mei xml:id=\"myid\" xmlns=\"http://www.music-encoding.org/ns/mei\" meiversion=\"3.0.0\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n\t<music xml:id=\"musid\" xlink:title=\"my awesome thing\">mus!</music>\n</mei>\n";
     string ret = mei::documentToText(d);
     ASSERT_EQ(expected, ret);
 }
