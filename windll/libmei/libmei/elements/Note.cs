@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace mei
+{
+  /// <summary>
+  /// <note/>
+  /// </summary>
+  public class Note : MeiElement, IAttCommon
+  {
+    public Note() : base("note") { }
+  }
+
+}
