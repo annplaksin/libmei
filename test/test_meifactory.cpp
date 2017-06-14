@@ -7,9 +7,17 @@
 //
 
 #include <gtest/gtest.h>
+
+#ifdef WIN32
+#include <shared.h>
+#include <meielement.h>
+#include <exceptions.h>
+#else
 #include <mei/shared.h>
 #include <mei/meielement.h>
 #include <mei/exceptions.h>
+#endif
+
 
 using mei::ElementNotRegisteredException;
 using mei::MeiElement;
@@ -36,8 +44,8 @@ TEST(TestMeiFactory, TestFactoryWithMixins) {
     ASSERT_EQ("note", e->getName());
 //    Note *n = static_cast<Note*>(e);
     // only note has these methods.
-    e->m_NoteVis.setHeadshape("diamond");
-    ASSERT_EQ("diamond", e->m_NoteVis.getHeadshape()->getValue());
+    e->m_Noteheads.setHeadShape("diamond");
+    ASSERT_EQ("diamond", e->m_Noteheads.getHeadShape()->getValue());
 }
 
 TEST(TestMeiFactory, TestFactoryBadElement) {

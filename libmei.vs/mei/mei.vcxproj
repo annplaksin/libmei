@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7199FE4A-D0ED-44FA-964B-819178E2A40A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>mei</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>BUILDING_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;MEI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\src\modules;..\..\src\export;..\..\src\import;..\..\src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level2</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>BUILDING_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;MEI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <!-- <SDLCheck>true</SDLCheck> -->
+      <AdditionalIncludeDirectories>..\..\src\modules;..\..\src\export;..\..\src\import;..\..\src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>BUILDING_DLL;WIN32;NDEBUG;_WINDOWS;_USRDLL;MEI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\src\modules;..\..\src\export;..\..\src\import;..\..\src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>BUILDING_DLL;WIN32;NDEBUG;_WINDOWS;_USRDLL;MEI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\src\modules;..\..\src\export;..\..\src\import;..\..\src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\exceptions.h" />
+    <ClInclude Include="..\..\src\export\xmlexport.h" />
+    <ClInclude Include="..\..\src\import\xmlimport.h" />
+    <ClInclude Include="..\..\src\mei.h" />
+    <ClInclude Include="..\..\src\meiattribute.h" />
+    <ClInclude Include="..\..\src\meicommon.h" />
+    <ClInclude Include="..\..\src\meidocument.h" />
+    <ClInclude Include="..\..\src\meielement.h" />
+    <ClInclude Include="..\..\src\modules\analysismixins.h" />
+    <ClInclude Include="..\..\src\modules\cmn.h" />
+    <ClInclude Include="..\..\src\modules\cmnmixins.h" />
+    <ClInclude Include="..\..\src\modules\cmnornaments.h" />
+    <ClInclude Include="..\..\src\modules\cmnornamentsmixins.h" />
+    <ClInclude Include="..\..\src\modules\corpus.h" />
+    <ClInclude Include="..\..\src\modules\critapp.h" />
+    <ClInclude Include="..\..\src\modules\critappmixins.h" />
+    <ClInclude Include="..\..\src\modules\edittrans.h" />
+    <ClInclude Include="..\..\src\modules\edittransmixins.h" />
+    <ClInclude Include="..\..\src\modules\facsimile.h" />
+    <ClInclude Include="..\..\src\modules\facsimilemixins.h" />
+    <ClInclude Include="..\..\src\modules\figtable.h" />
+    <ClInclude Include="..\..\src\modules\figtablemixins.h" />
+    <ClInclude Include="..\..\src\modules\frbr.h" />
+    <ClInclude Include="..\..\src\modules\frbrmixins.h" />
+    <ClInclude Include="..\..\src\modules\harmony.h" />
+    <ClInclude Include="..\..\src\modules\harmonymixins.h" />
+    <ClInclude Include="..\..\src\modules\header.h" />
+    <ClInclude Include="..\..\src\modules\headermixins.h" />
+    <ClInclude Include="..\..\src\modules\linkalign.h" />
+    <ClInclude Include="..\..\src\modules\linkalignmixins.h" />
+    <ClInclude Include="..\..\src\modules\lyrics.h" />
+    <ClInclude Include="..\..\src\modules\lyricsmixins.h" />
+    <ClInclude Include="..\..\src\modules\mensural.h" />
+    <ClInclude Include="..\..\src\modules\mensuralmixins.h" />
+    <ClInclude Include="..\..\src\modules\midi.h" />
+    <ClInclude Include="..\..\src\modules\midimixins.h" />
+    <ClInclude Include="..\..\src\modules\namesdates.h" />
+    <ClInclude Include="..\..\src\modules\neumes.h" />
+    <ClInclude Include="..\..\src\modules\neumesmixins.h" />
+    <ClInclude Include="..\..\src\modules\performance.h" />
+    <ClInclude Include="..\..\src\modules\ptrref.h" />
+    <ClInclude Include="..\..\src\modules\shared.h" />
+    <ClInclude Include="..\..\src\modules\sharedmixins.h" />
+    <ClInclude Include="..\..\src\modules\tablaturemixins.h" />
+    <ClInclude Include="..\..\src\modules\text.h" />
+    <ClInclude Include="..\..\src\modules\usersymbols.h" />
+    <ClInclude Include="..\..\src\pugiconfig.hpp" />
+    <ClInclude Include="..\..\src\pugixml.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\export\xmlexport.cpp" />
+    <ClCompile Include="..\..\src\import\xmlimport.cpp" />
+    <ClCompile Include="..\..\src\meiattribute.cpp" />
+    <ClCompile Include="..\..\src\meidocument.cpp" />
+    <ClCompile Include="..\..\src\meielement.cpp" />
+    <ClCompile Include="..\..\src\modules\analysismixins.cpp" />
+    <ClCompile Include="..\..\src\modules\cmn.cpp" />
+    <ClCompile Include="..\..\src\modules\cmnmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\cmnornaments.cpp" />
+    <ClCompile Include="..\..\src\modules\cmnornamentsmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\corpus.cpp" />
+    <ClCompile Include="..\..\src\modules\critapp.cpp" />
+    <ClCompile Include="..\..\src\modules\critappmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\edittrans.cpp" />
+    <ClCompile Include="..\..\src\modules\edittransmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\facsimile.cpp" />
+    <ClCompile Include="..\..\src\modules\facsimilemixins.cpp" />
+    <ClCompile Include="..\..\src\modules\figtable.cpp" />
+    <ClCompile Include="..\..\src\modules\figtablemixins.cpp" />
+    <ClCompile Include="..\..\src\modules\frbr.cpp" />
+    <ClCompile Include="..\..\src\modules\frbrmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\harmony.cpp" />
+    <ClCompile Include="..\..\src\modules\harmonymixins.cpp" />
+    <ClCompile Include="..\..\src\modules\header.cpp" />
+    <ClCompile Include="..\..\src\modules\headermixins.cpp" />
+    <ClCompile Include="..\..\src\modules\linkalign.cpp" />
+    <ClCompile Include="..\..\src\modules\linkalignmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\lyrics.cpp" />
+    <ClCompile Include="..\..\src\modules\lyricsmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\mensural.cpp" />
+    <ClCompile Include="..\..\src\modules\mensuralmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\midi.cpp" />
+    <ClCompile Include="..\..\src\modules\midimixins.cpp" />
+    <ClCompile Include="..\..\src\modules\namesdates.cpp" />
+    <ClCompile Include="..\..\src\modules\neumes.cpp" />
+    <ClCompile Include="..\..\src\modules\neumesmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\performance.cpp" />
+    <ClCompile Include="..\..\src\modules\ptrref.cpp" />
+    <ClCompile Include="..\..\src\modules\shared.cpp" />
+    <ClCompile Include="..\..\src\modules\sharedmixins.cpp" />
+    <ClCompile Include="..\..\src\modules\tablaturemixins.cpp" />
+    <ClCompile Include="..\..\src\modules\text.cpp" />
+    <ClCompile Include="..\..\src\modules\usersymbols.cpp" />
+    <ClCompile Include="..\..\src\pugixml.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

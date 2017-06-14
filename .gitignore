@@ -27,3 +27,15 @@ pymei.egg-info
 libmei.js
 a.out
 emscripten/node_modules
+libmei.vs/gtest/x64/Debug/
+libmei.vs/gtest/gtest/
+libmei.vs/mei/Debug/
+libmei.vs/gtest/Debug/
+libmei.vs/x64/
+libmei.vs/Debug/
+libmei.vs/mei/x64/
+libmei.vs/packages
+libmei.vs/mei/Release/
+libmei.vs/Release/
+libmei.vs/gtest/x64/Release/
+*.tlog

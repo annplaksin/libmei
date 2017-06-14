@@ -32,8 +32,10 @@
 #include "sharedmixins.h"
 #include "facsimilemixins.h"
 #include "cmnornamentsmixins.h"
+#include "usersymbolsmixins.h"
+#include "externalsymbolsmixins.h"
 #include "analysismixins.h"
-#include "linkalignmixins.h"
+#include "performancemixins.h"
 
 
 namespace mei {
@@ -49,9 +51,11 @@ class MEI_EXPORT Mordent : public MeiElement {
 /* include <mordent> */
 
         CommonMixIn    m_Common;
+        CommonPartMixIn    m_CommonPart;
         FacsimileMixIn    m_Facsimile;
         MordentLogMixIn    m_MordentLog;
         PlistMixIn    m_Plist;
+        TargetevalMixIn    m_Targeteval;
         TimestampMusicalMixIn    m_TimestampMusical;
         TimestampPerformedMixIn    m_TimestampPerformed;
         StaffidentMixIn    m_Staffident;
@@ -59,20 +63,24 @@ class MEI_EXPORT Mordent : public MeiElement {
         StartendidMixIn    m_Startendid;
         StartidMixIn    m_Startid;
         OrnamentaccidMixIn    m_Ornamentaccid;
+        AltsymMixIn    m_Altsym;
         ColorMixIn    m_Color;
+        ExtsymMixIn    m_Extsym;
         PlacementMixIn    m_Placement;
+        TypographyMixIn    m_Typography;
         VisualoffsetHoMixIn    m_VisualoffsetHo;
         VisualoffsetToMixIn    m_VisualoffsetTo;
         VisualoffsetVoMixIn    m_VisualoffsetVo;
         CommonAnlMixIn    m_CommonAnl;
         AlignmentMixIn    m_Alignment;
+        TypedMixIn    m_Typed;
 
     private:
         REGISTER_DECLARATION(Mordent);
 };
 
-/** \brief Rapid alternation of a note with one (usually at the interval of a second)
- *  above.
+/** \brief Rapid alternation of a note with another (usually at the interval of a second
+ *  above).
  */
 class MEI_EXPORT Trill : public MeiElement {
     public:
@@ -83,8 +91,10 @@ class MEI_EXPORT Trill : public MeiElement {
 /* include <trill> */
 
         CommonMixIn    m_Common;
+        CommonPartMixIn    m_CommonPart;
         FacsimileMixIn    m_Facsimile;
         PlistMixIn    m_Plist;
+        TargetevalMixIn    m_Targeteval;
         TimestampMusicalMixIn    m_TimestampMusical;
         TimestampPerformedMixIn    m_TimestampPerformed;
         StaffidentMixIn    m_Staffident;
@@ -95,8 +105,14 @@ class MEI_EXPORT Trill : public MeiElement {
         StartendidMixIn    m_Startendid;
         StartidMixIn    m_Startid;
         Timestamp2MusicalMixIn    m_Timestamp2Musical;
+        AltsymMixIn    m_Altsym;
         ColorMixIn    m_Color;
+        ExtenderMixIn    m_Extender;
+        LinerendMixIn    m_Linerend;
+        LinerendBaseMixIn    m_LinerendBase;
         PlacementMixIn    m_Placement;
+        ExtsymMixIn    m_Extsym;
+        TypographyMixIn    m_Typography;
         VisualoffsetHoMixIn    m_VisualoffsetHo;
         VisualoffsetToMixIn    m_VisualoffsetTo;
         VisualoffsetVoMixIn    m_VisualoffsetVo;
@@ -106,6 +122,7 @@ class MEI_EXPORT Trill : public MeiElement {
         DurationPerformedMixIn    m_DurationPerformed;
         CommonAnlMixIn    m_CommonAnl;
         AlignmentMixIn    m_Alignment;
+        TypedMixIn    m_Typed;
 
     private:
         REGISTER_DECLARATION(Trill);
@@ -123,23 +140,29 @@ class MEI_EXPORT Turn : public MeiElement {
 /* include <turn> */
 
         CommonMixIn    m_Common;
+        CommonPartMixIn    m_CommonPart;
         FacsimileMixIn    m_Facsimile;
         TurnLogMixIn    m_TurnLog;
         PlistMixIn    m_Plist;
+        TargetevalMixIn    m_Targeteval;
         TimestampMusicalMixIn    m_TimestampMusical;
         TimestampPerformedMixIn    m_TimestampPerformed;
         StaffidentMixIn    m_Staffident;
         LayeridentMixIn    m_Layerident;
         OrnamentaccidMixIn    m_Ornamentaccid;
         StartidMixIn    m_Startid;
+        AltsymMixIn    m_Altsym;
         ColorMixIn    m_Color;
+        ExtsymMixIn    m_Extsym;
         PlacementMixIn    m_Placement;
+        TypographyMixIn    m_Typography;
         VisualoffsetHoMixIn    m_VisualoffsetHo;
         VisualoffsetToMixIn    m_VisualoffsetTo;
         VisualoffsetVoMixIn    m_VisualoffsetVo;
         XyMixIn    m_Xy;
         CommonAnlMixIn    m_CommonAnl;
         AlignmentMixIn    m_Alignment;
+        TypedMixIn    m_Typed;
 
     private:
         REGISTER_DECLARATION(Turn);

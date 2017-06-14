@@ -35,7 +35,7 @@ class RelMixIn {
     public:
         explicit RelMixIn(MeiElement *b);
         virtual ~RelMixIn();
-        /** \brief describes the relationship between the <relatedItem> and the resource described
+        /** \brief Describes the relationship between the <relatedItem> and the resource described
          *  in the parent element, i.e., <bibl>, <source> or <relatedItem>.
          * 
          *  The values are based on MODS version 3.4. The subject of these relations is
