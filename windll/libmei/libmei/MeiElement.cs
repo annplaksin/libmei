@@ -18,12 +18,24 @@ namespace mei
       this.GenerateAndSetID();
     }
 
-    private void GenerateAndSetID()
+    public void GenerateAndSetID()
     {
       if(ID == null)
       {
         ID = string.Concat("m-", Guid.NewGuid().ToString().ToLower());
       }
     }
+
+    public string GetName()
+    {
+      return this.Name.LocalName;
+    }
+
+    public string GetValue()
+    {
+      return this.Value;
+    }
+
+    //SetValue(_bla) is already available as XElement.SetValue (object value)
   }
 }
