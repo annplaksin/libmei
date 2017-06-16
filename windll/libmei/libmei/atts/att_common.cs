@@ -5,18 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-/*
- * Noch zwei Probleme müssen gelöst werden:
- * - Ineinandergeschaltelte Attributsklassen
- * - Attribute mit xml-Namespace
- */
-
-namespace mei
+namespace mei.atts
 {
   /// <summary>
   /// Interface for att.common
   /// </summary>
-  interface IAttCommon : IMEiAtt
+  interface IAttCommon : IMEiAtt, IAttCommonPart
   {
 
   }
