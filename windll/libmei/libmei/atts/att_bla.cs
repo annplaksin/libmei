@@ -33,7 +33,7 @@ namespace mei.atts
   /// </summary>
   interface IAttBla : IMEiAtt
   {
-    public static XNamespace ns = "http://github.com/annplaksin/bla";
+    
   }
 
   /// <summary>
@@ -42,25 +42,26 @@ namespace mei.atts
   static class AttBla_extensions
   {
     #region bla:bla
+    private static readonly XNamespace ns_bla = "http://github.com/annplaksin/bla";
+
     public static void SetBla(this IAttBla e, string _val)
     {
-      e.SetAttribute("bla", ns, _val);
+      MeiAtt_controller.SetAttribute(e, "bla", ns_bla, _val);
     }
 
     public static XAttribute GetBla(this IAttBla e)
     {
-      return e.GetAttribute("bla", "http://github.com/annplaksin/bla");
-
+      return MeiAtt_controller.GetAttribute(e, "bla", ns_bla);
     }
 
     public static bool HasBla(this IAttBla e)
     {
-      return e.HasAttribute("bla:bla");
+      return MeiAtt_controller.HasAttribute(e, "bla", ns_bla);
     }
 
     public static void RemoveBla(this IAttBla e)
     {
-      e.RemoveAttribute("bla:bla");
+      MeiAtt_controller.RemoveAttribute(e, "bla", ns_bla);
     }
     #endregion
   }

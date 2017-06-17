@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace mei
+namespace mei.atts
 {
   /// <summary>
   /// Basic interface for all attribute class interfaces
@@ -23,7 +23,7 @@ namespace mei
   /// <summary>
   /// Basis extension class for all attribute class extension classes
   /// </summary>
-  static class MeiAtt_extensions
+  static class MeiAtt_controller
   {
     #region SetAttribute
     /// <summary>
@@ -32,7 +32,7 @@ namespace mei
     /// <param name="e">element</param>
     /// <param name="_name">name of attribute</param>
     /// <param name="_val">value to set</param>
-    public static void SetAttribute(this IMEiAtt e, string _name, string _val)
+    internal static void SetAttribute(IMEiAtt e, string _name, string _val)
     {
       if (_name.StartsWith("xml:"))
       {

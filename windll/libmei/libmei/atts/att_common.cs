@@ -23,24 +23,24 @@ namespace mei.atts
     #region n
     public static void SetN(this IAttCommon e, string _val)
     {
-      e.SetAttribute("n", _val);
+      MeiAtt_controller.SetAttribute(e, "n", _val);
 
     }
 
     public static XAttribute GetN(this IAttCommon e)
     {
-      return e.GetAttribute("n");
+      return MeiAtt_controller.GetAttribute(e, "n");
 
     }
 
     public static bool HasN(this IAttCommon e)
     {
-      return e.HasAttribute("n");
+      return MeiAtt_controller.HasAttribute(e, "n");
     }
 
     public static void RemoveN(this IAttCommon e)
     {
-      e.RemoveAttribute("n");
+      MeiAtt_controller.RemoveAttribute(e, "n");
     }
     #endregion
   }

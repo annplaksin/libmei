@@ -44,6 +44,7 @@
     <Compile Include="atts\att_commomPart.cs" />
     <Compile Include="atts\att_common.cs" />
     <Compile Include="atts\att_id.cs" />
+    <Compile Include="elements\Blubb.cs" />
     <Compile Include="MeiAtt.cs" />
     <Compile Include="elements\Note.cs" />
     <Compile Include="MeiElement.cs" />

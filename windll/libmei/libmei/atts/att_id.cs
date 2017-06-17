@@ -24,24 +24,24 @@ namespace mei.atts
     #region xml:id
     public static void SetId(this IAttId e, string _val)
     {
-      e.SetAttribute("xml:id", _val);
+      MeiAtt_controller.SetAttribute(e, "xml:id", _val);
 
     }
 
     public static XAttribute GetId(this IAttId e)
     {
-      return e.GetAttribute("xml:id");
+      return MeiAtt_controller.GetAttribute(e, "xml:id");
 
     }
 
     public static bool HasId(this IAttId e)
     {
-      return e.HasAttribute("xml:id");
+      return MeiAtt_controller.HasAttribute(e, "xml:id");
     }
 
     public static void RemoveId(this IAttId e)
     {
-      e.RemoveAttribute("xml:id");
+      MeiAtt_controller.RemoveAttribute(e, "xml:id");
     }
     #endregion
   }

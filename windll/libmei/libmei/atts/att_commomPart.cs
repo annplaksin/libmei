@@ -23,48 +23,48 @@ namespace mei.atts
     #region label
     public static void SetLabel(this IAttCommonPart e, string _val)
     {
-      e.SetAttribute("label", _val);
+      MeiAtt_controller.SetAttribute(e, "label", _val);
 
     }
 
     public static XAttribute GetLabel(this IAttCommonPart e)
     {
-      return e.GetAttribute("label");
+      return MeiAtt_controller.GetAttribute(e, "label");
 
     }
 
     public static bool HasLabel(this IAttCommonPart e)
     {
-      return e.HasAttribute("label");
+      return MeiAtt_controller.HasAttribute(e, "label");
     }
 
     public static void RemoveLabel(this IAttCommonPart e)
     {
-      e.RemoveAttribute("label");
+      MeiAtt_controller.RemoveAttribute(e, "label");
     }
     #endregion
 
     #region xml:base
     public static void SetBase(this IAttCommonPart e, string _val)
     {
-      e.SetAttribute("xml:base", _val);
+      MeiAtt_controller.SetAttribute(e, "xml:base", _val);
 
     }
 
     public static XAttribute GetBase(this IAttCommonPart e)
     {
-      return e.GetAttribute("xml:base");
+      return MeiAtt_controller.GetAttribute(e, "xml:base");
 
     }
 
     public static bool HasBase(this IAttCommonPart e)
     {
-      return e.HasAttribute("xml:base");
+      return MeiAtt_controller.HasAttribute(e, "xml:base");
     }
 
     public static void RemoveBase(this IAttCommonPart e)
     {
-      e.RemoveAttribute("xml:base");
+      MeiAtt_controller.RemoveAttribute(e, "xml:base");
     }
     #endregion
 
