@@ -13,10 +13,12 @@ namespace mei
   /// </summary>
   public class Blubb : MeiElement, IAttCommon
   {
+    private static readonly XNamespace ns_blubb = "http://github.com/annplaksin/bla";
+
     /// <summary>
     /// Constructor with explicit namespace
     /// </summary>
-    public Blubb() : base("blubb", "myNS") { }
+    public Blubb() : base(ns_blubb, "blubb") { }
 
     /// <summary>
     /// Attribute method for attributes defined within an elementSpec
