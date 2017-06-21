@@ -41,3 +41,7 @@ libmei.vs/gtest/x64/Release/
 *.tlog
 windll/libmei/libmei/obj/
 .vs/
+/tools/includes/vrv
+/tools/output
+/tools/langs/cplusplus_vrv.py
+/tools/includes/mei-Mensural.xml
