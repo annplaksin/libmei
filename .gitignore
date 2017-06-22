@@ -45,3 +45,6 @@ windll/libmei/libmei/obj/
 /tools/output
 /tools/langs/cplusplus_vrv.py
 /tools/includes/mei-Mensural.xml
+/tools/includes/mei-Mensural_sourceEncoding.xml
+/tools/windll_mse
+/tools/mei-Mensural_sourceEncoding.xml

@@ -17,7 +17,7 @@
     <InterpreterArguments>
     </InterpreterArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
-    <CommandLineArguments>mei-Mensural.xml -l windll</CommandLineArguments>
+    <CommandLineArguments>mei-Mensural_sourceEncoding.xml -l windll -o windll_mse</CommandLineArguments>
     <Environment>
     </Environment>
   </PropertyGroup>

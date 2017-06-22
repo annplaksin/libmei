@@ -52,13 +52,36 @@ ATT_METHODS = """#region {attNameLower}
     {{
       MeiAtt_controller.RemoveAttribute(e, "{attNameLower}");
     }}
-    #endregion"""
+    #endregion
+    """
 
-ATT_METHODS_DOC = """
-"""
+ATT_METHODS_NS = """#region {attNameLower}
+    private static readonly XNamespace ns_{attNameLower} = "{newnamespace}";
 
-ATTGROUP_EXTENSION_CLASS = """\n    /// <summary>
-  /// Extension methods for att.common
+    public static void Set{attNameUpper}(this IAtt{attGroupNameUpper} e, string _val)
+    {{
+      MeiAtt_controller.SetAttribute(e, "{attNameLower}", ns_{attNameLower}, _val);
+    }}
+
+    public static XAttribute Get{attNameUpper}(this IAtt{attGroupNameUpper} e)
+    {{
+      return MeiAtt_controller.GetAttribute(e, "{attNameLower}", ns_{attNameLower});
+    }}
+
+    public static bool Has{attNameUpper}(this IAtt{attGroupNameUpper} e)
+    {{
+      return MeiAtt_controller.HasAttribute(e, "{attNameLower}", ns_{attNameLower});
+    }}
+
+    public static void Remove{attNameUpper}(this IAtt{attGroupNameUpper} e)
+    {{
+      MeiAtt_controller.RemoveAttribute(e, "{attNameLower}", ns_{attNameLower});
+    }}
+    #endregion
+    """
+
+ATTGROUP_EXTENSION_CLASS = """\n  /// <summary>
+  /// Extension methods for {attGroupName}
   /// </summary>
   static class Att{attGroupNameUpper}_extensions
   {{
@@ -66,13 +89,44 @@ ATTGROUP_EXTENSION_CLASS = """\n    /// <summary>
   }}
 """
 
-ATTGROUP_INTERFACE = """\n    /// <summary>
-  /// Interface for att.common
+ATTGROUP_INTERFACE = """\n  /// <summary>
+  /// Interface for {attGroupName}
   /// </summary>
-  interface IAtt{attGroupNameUpper} : IMEiAtt
+  interface IAtt{attGroupNameUpper} : IMEiAtt{members}
   {{
 
   }}
+"""
+
+ELEMENT_FILE = """using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using mei.atts;
+
+{license}
+
+namespace mei
+{{
+    /// <summary>
+    /// <{elementName}/>
+    /// </summary>
+    public class {elementNameUpper} : MeiElement{attClassInterfaces}
+    {{
+        {constructors}
+
+        //attribute methods
+    }}
+}}
+"""
+NS_DECLARATION ="""private static readonly XNamespace ns_{elementName} = "{ns}"
+"""
+
+ELEMENT_CONSTRUCTORS ="""{ns_decl}
+
+public {elementNameUpper}() : base({elementConst}) {{ }}
 """
 
 LICENSE = """/////////////////////////////////////////////////////////////////////////////
@@ -89,11 +143,32 @@ LICENSE = """///////////////////////////////////////////////////////////////////
 // should not be edited because changes will be lost.
 /////////////////////////////////////////////////////////////////////////////"""
 
+# globals
+TEI_NS = {"tei": "http://www.tei-c.org/ns/1.0", "rng": "http://relaxng.org/ns/structure/1.0"}
+
+def windll_getAttClassMembers(schema, group):
+    #returns a list of members of an attribute class
+    memberList = schema.xpath("//tei:classSpec[@type=$att][@ident=$nm]/tei:classes/tei:memberOf/@key", att="atts", nm=group, namespaces=TEI_NS)
+
+    if "att.id" in memberList:
+        memberList.remove("att.id")
+
+    return (memberList)
+
+def windll_getElementNS(schema, element):
+    #returns non-mei namespaces
+    ns = schema.xpath("//tei:elementSpec[@ident=$el]/@ns", el = element, namespaces=TEI_NS)
+
+    if "http://www.music-encoding.org/ns/mei" in ns:
+        ns.remove("http://www.music-encoding.org/ns/mei")
+
+    return (ns)
+
 
 def create(schema, outdir):
     lg.debug("Begin C# Output ... ")
     __create_att_classes(schema, outdir)
-    #__create_element_classes(schema, outdir)
+    __create_element_classes(schema, outdir)
 
     lg.debug("Success!")
 
@@ -132,33 +207,47 @@ def __get_docstr(text, indent=0):
 
 def __create_att_classes(schema, outdir):
     lg.debug("Creating Attribute Classes")
+
+    outdir_att = os.path.join(outdir, "atts")
+    os.mkdir(outdir_att)
     
     for module, atgroup in sorted(schema.attribute_group_structure.items()):
         fullout = ""
-        extension_classes = ""
-        interfaces = ""
 
         if not atgroup:
             # continue if we don't have any attribute groups in this module
             continue
 
         for gp, atts in sorted(atgroup.items()):
+            
+            extension_classes = ""
+            interfaces = ""
+
             if not atts:
                 continue
 
             methods = ""
             prefix = ""
+            namespace = ""
+
+            gp_members = windll_getAttClassMembers(schema.schema, gp)
+
             for att in atts:
                 if len(att.split("|")) > 1:
                     # we have a namespaced attribute
                     ns,att = att.split("|")
-                    prefix = NS_PREFIX_MAP[ns]
+                    
                     #nssubstr = {
                     #    "prefix": NS_PREFIX_MAP[ns],
                     #    "href": ns
                     #}
                     #nsDef = NAMESPACE_TEMPLATE.format(**nssubstr)
                     attrNs = "s, "
+                    if ns in NS_PREFIX_MAP:
+                        prefix = NS_PREFIX_MAP[ns]
+                    else:
+                        # handling of unkown namespaces
+                        namespace = ns
                 else:
                     nsDef = ""
                     attrNs = ""
@@ -166,103 +255,115 @@ def __create_att_classes(schema, outdir):
                 substrings = {
                     "attNameUpper" : schema.cc(schema.strpatt(att)),
                     "attNameLower" : "{0}:{1}".format(prefix, att) if prefix != "" else "{0}".format(att),
-                    "attGroupNameUpper": schema.cc(schema.strpatt(gp))
+                    "attGroupNameUpper": schema.cc(schema.strpatt(gp)),
+                    }
+                substrings_ns = {
+                    "attNameUpper" : schema.cc(schema.strpatt(att)),
+                    "attNameLower" : "{0}:{1}".format(prefix, att) if prefix != "" else "{0}".format(att),
+                    "attGroupNameUpper": schema.cc(schema.strpatt(gp)),
+                    "newnamespace" : namespace
                     }
                 if len(methods) > 0:
                     methods += "//\n"
-                methods += ATT_METHODS.format(**substrings)
+
+                # if attribute has an unkown namespace, write methods with explicit namespace
+                if namespace != "":
+                    methods += ATT_METHODS_NS.format(**substrings_ns)
+                else:
+                    methods += ATT_METHODS.format(**substrings)
 
             clsubstrings = {
                 "methods" : methods,
                 "attGroupNameUpper" : schema.cc(schema.strpatt(gp)),
+                "attGroupName" : gp,
                 }
+            #add List of members
+            members = ""
+            for member in gp_members:
+                members += ", I{0}".format(schema.cc(member))
+
             intstrings = {
                 "attGroupNameUpper" : schema.cc(schema.strpatt(gp)),
+                "attGroupName" : gp,
+                "members" : members
                 }
 
             extension_classes += ATTGROUP_EXTENSION_CLASS.format(**clsubstrings)
             interfaces += ATTGROUP_INTERFACE.format(**intstrings)
 
-        tplvars = {
-            "license": LICENSE.format(authors=AUTHORS),
-            "ext_classes" : extension_classes,
-            "interfaces" : interfaces
-            }
+            tplvars = {
+                "license": LICENSE.format(authors=AUTHORS),
+                "ext_classes" : extension_classes,
+                "interfaces" : interfaces
+                }
 
-        fullout = ATT_FILE.format(**tplvars)
-        fmh = open(os.path.join(outdir, "atts_{0}.cs".format(module.lower())), 'w')
-        fmh.write(fullout)
-        fmh.close()
-        lg.debug("\tCreated atts_{0}.cs".format(module.lower()))
+            fullout = ATT_FILE.format(**tplvars)
+            
+            fmh = open(os.path.join(outdir_att, "att_{0}.cs".format(schema.cc(schema.strpatt(gp)).lower())), 'w')
+            fmh.write(fullout)
+            fmh.close()
+            lg.debug("\tCreated att_{0}.cs".format(schema.cc(schema.strpatt(gp)).lower()))
 
+def __create_element_classes(schema, outdir):
+    lg.debug("Creating Element Classes")
 
-def parse_includes(file_dir, includes_dir):
-    lg.debug("Parsing includes")
+    outdir_el = os.path.join(outdir, "elements")
+    os.mkdir(outdir_el)
 
-    # get the files in the includes directory
-    includes = [f for f in os.listdir(includes_dir) if not f.startswith(".")]
+    for module, elements in sorted(schema.element_structure.items()):
+        
+        if not elements:
+            continue
 
-    for dp, dn, fn in os.walk(file_dir):
-        for f in fn:
-            if f.startswith("."):
-                continue
-            methods, inc = __process_include(f, includes, includes_dir)
-            if methods:
-                __parse_codefile(methods, inc, dp, f)
+        for element, atgroups in sorted(elements.items()):
+            fullout = ""
+            at_interfaces = ""
+            ns_nonmei = ""
+            class_constuctors = ""
 
+            # Look for attribute classes and attributes within elementSpec
+            for attribute in atgroups:
+                if isinstance(attribute, list):
+                    continue
 
-def __process_include(fname, includes, includes_dir):
-    name, ext = os.path.splitext(fname)
-    new_methods, includes_block = None, None
-    if "{0}.inc".format(fname) in includes:
-        lg.debug("\tProcessing include for {0}".format(fname))
-        f = open(os.path.join(includes_dir, "{0}.inc".format(fname)), 'r')
-        includefile = f.read()
-        f.close()
-        new_methods, includes_block = __parse_includefile(includefile)
-        return (new_methods, includes_block)
-    else:
-        return (None, None)
+                else:
+                    at_interfaces += ", I{0}".format(schema.cc(attribute))
 
+            # Build constructors
+            # First, look for non-mei namespaces
+            ns_nonmei = windll_getElementNS(schema.schema, element)
+            ns_readonly = ""
+            if len(ns_nonmei) > 0:
+                ns_strings = {
+                    "elementName" : element,
+                    "ns" : ns_nonmei[len(ns_nonmei)-1]
+                    }
+                ns_readonly += NS_DECLARATION.format(**ns_strings)
 
-def __parse_includefile(contents):
-    # parse the include file for our methods.
-    ret = {}
-    inc = []
-    reg = re.compile(r"/\* <(?P<elementName>[^>]+)> \*/(.+?)/\* </(?P=elementName)> \*/", re.MULTILINE | re.DOTALL)
-    ret = dict(re.findall(reg, contents))
+            element_const = "\"{0}\"".format(element) if ns_readonly == "" else "ns_{0}, \"{0}\"".format(element)
 
-    # grab the include for the includes...
-    reginc = re.compile(r"/\* #include_block \*/(.+?)/\* #include_block \*/", re.MULTILINE | re.DOTALL)
-    inc = re.findall(reginc, contents)
-    return (ret, inc)
+            const_strings = {
+                "ns_decl" : ns_readonly if ns_readonly != "" else "//bla",
+                "elementConst" : element_const,
+                "elementNameUpper" : schema.cc(element)
+                }
 
+            class_constuctors += ELEMENT_CONSTRUCTORS.format(**const_strings)
 
-def __parse_codefile(methods, includes, directory, codefile):
-    f = open(os.path.join(directory, codefile), 'r')
-    contents = f.readlines()
-    f.close()
-    regmatch = re.compile(r"/\* include <(?P<elementName>[^>]+)> \*/")
-    incmatch = re.compile(r"/\* #include_block \*/")
-    for i, line in enumerate(contents):
-        imatch = re.match(incmatch, line)
-        if imatch:
-            if includes:
-                contents[i] = includes[0]
+            el_docstrings = {
+                "elementName" : element,
+                "elementNameUpper" : schema.cc(element),
+                "attClassInterfaces" : at_interfaces,
+                "constructors" : class_constuctors,
+                "license": LICENSE.format(authors=AUTHORS),
+                }
 
-        match = re.match(regmatch, line)
-        if match:
-            if match.group("elementName") in methods.keys():
-                contents[i] = methods[match.group("elementName")].lstrip("\n") + "\n"
-
-    f = open(os.path.join(directory, codefile), 'w')
-    f.writelines(contents)
-    f.close()
-
-
-
-
-
+            fullout += ELEMENT_FILE.format(**el_docstrings)
+            
+            fmi = open(os.path.join(outdir_el, "{0}.cs".format(schema.cc(element))), 'w')
+            fmi.write(fullout)
+            fmi.close()
+            lg.debug("\tCreated {0}.cs".format(schema.cc(element)))
 
 
 
