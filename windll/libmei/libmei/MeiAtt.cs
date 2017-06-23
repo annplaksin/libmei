@@ -25,6 +25,9 @@ namespace mei.atts
   /// </summary>
   static class MeiAtt_controller
   {
+    //Declare XLink namespace
+    private static readonly XNamespace xlink = "http://www.w3.org/1999/xlink";
+
     #region SetAttribute
     /// <summary>
     /// Sets the value of an attribute by name
@@ -36,11 +39,15 @@ namespace mei.atts
     {
       if (_name.StartsWith("xml:"))
       {
-        e.SetAttribute(_name, XNamespace.Xml, _val);
+        SetAttribute(e, _name, XNamespace.Xml, _val);
+      }
+      if (_name.StartsWith("xlink:"))
+      {
+        SetAttribute(e, _name, xlink, _val);
       }
       else
       {
-        if (e.HasAttribute(_name))
+        if (HasAttribute(e, _name))
         {
           e.Attribute(_name).SetValue(_val);
         }
@@ -58,9 +65,9 @@ namespace mei.atts
     /// <param name="_name">name of attribute</param>
     /// <param name="_ns">namespace of attribute</param>
     /// <param name="_val">value to set</param>
-    public static void SetAttribute(this IMEiAtt e, string _name, XNamespace _ns, string _val)
+    public static void SetAttribute(IMEiAtt e, string _name, XNamespace _ns, string _val)
     {
-      if (e.HasAttribute(_name, _ns))
+      if (HasAttribute(e, _name, _ns))
       {
         e.Attribute(_ns + _name).SetValue(_val);
       }
@@ -78,15 +85,19 @@ namespace mei.atts
     /// <param name="e">element</param>
     /// <param name="_name">name of attribute</param>
     /// <returns></returns>
-    public static XAttribute GetAttribute(this IMEiAtt e, string _name)
+    public static XAttribute GetAttribute(IMEiAtt e, string _name)
     {
       if (_name.StartsWith("xml:"))
       {
-        return e.GetAttribute(_name, XNamespace.Xml);
+        return GetAttribute(e, _name, XNamespace.Xml);
+      }
+      if (_name.StartsWith("xlink:"))
+      {
+        return GetAttribute(e, _name, xlink);
       }
       else
       {
-        if (e.HasAttribute(_name))
+        if (HasAttribute(e, _name))
         {
           return e.Attribute(_name);
         }
@@ -104,9 +115,9 @@ namespace mei.atts
     /// <param name="_name">name of attribute</param>
     /// <param name="_ns">namespace of attribute</param>
     /// <returns></returns>
-    public static XAttribute GetAttribute(this IMEiAtt e, string _name, XNamespace _ns)
+    public static XAttribute GetAttribute(IMEiAtt e, string _name, XNamespace _ns)
     {
-      if (e.HasAttribute(_name, _ns))
+      if (HasAttribute(e, _name, _ns))
       {
         return e.Attribute(_ns + _name);
       }
@@ -125,11 +136,15 @@ namespace mei.atts
     /// <param name="e">element</param>
     /// <param name="_name">name of attribute</param>
     /// <returns></returns>
-    public static bool HasAttribute(this IMEiAtt e, string _name)
+    public static bool HasAttribute(IMEiAtt e, string _name)
     {
       if (_name.StartsWith("xml:"))
       {
-        return e.HasAttribute(_name, XNamespace.Xml);
+        return HasAttribute(e, _name, XNamespace.Xml);
+      }
+      if (_name.StartsWith("xlink:"))
+      {
+        return HasAttribute(e, _name, xlink);
       }
       else
       {
@@ -144,7 +159,7 @@ namespace mei.atts
     /// <param name="_name">name of attribute</param>
     /// <param name="_ns">namespace of attribute</param>
     /// <returns></returns>
-    public static bool HasAttribute(this IMEiAtt e, string _name, XNamespace _ns)
+    public static bool HasAttribute(IMEiAtt e, string _name, XNamespace _ns)
     {
       return (e.Attributes(_ns + _name).Count() > 0);
     }
@@ -156,15 +171,19 @@ namespace mei.atts
     /// </summary>
     /// <param name="e">element</param>
     /// <param name="_name">Name of attribute</param>
-    public static void RemoveAttribute(this IMEiAtt e, string _name)
+    public static void RemoveAttribute(IMEiAtt e, string _name)
     {
       if (_name.StartsWith("xml:"))
       {
-        e.RemoveAttribute(_name, XNamespace.Xml);
+        RemoveAttribute(e, _name, XNamespace.Xml);
+      }
+      if (_name.StartsWith("xlink:"))
+      {
+        RemoveAttribute(e, _name, xlink);
       }
       else
       {
-        if (e.HasAttribute(_name))
+        if (HasAttribute(e, _name))
         {
           e.Attribute(_name).Remove();
         }
@@ -177,9 +196,9 @@ namespace mei.atts
     /// <param name="e">element</param>
     /// <param name="_name">name of attribute</param>
     /// <param name="_ns">namespace of attribute</param>
-    public static void RemoveAttribute(this IMEiAtt e, string _name, XNamespace _ns)
+    public static void RemoveAttribute(IMEiAtt e, string _name, XNamespace _ns)
     {
-      if (e.HasAttribute(_name, _ns))
+      if (HasAttribute(e, _name, _ns))
       {
         e.Attribute(_ns + _name).Remove();
       }
