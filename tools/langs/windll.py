@@ -33,54 +33,30 @@ namespace mei.atts
 }}"""
 
 ATT_METHODS = """#region {attNameLower}
-    public static void Set{attNameUpper}(this IAtt{attGroupNameUpper} e, string _val)
+    {ns_decl}
+    public static void Set{attNameUpper}({interfaceParamDefSet}string _val)
     {{
-      MeiAtt_controller.SetAttribute(e, "{attNameLower}", _val);
+      MeiAtt_controller.SetAttribute({interfaceParamInvoke}, {attConst}, _val);
     }}
 
-    public static XAttribute Get{attNameUpper}(this IAtt{attGroupNameUpper} e)
+    public static XAttribute Get{attNameUpper}({interfaceParamDef})
     {{
-      return MeiAtt_controller.GetAttribute(e, "{attNameLower}");
+      return MeiAtt_controller.GetAttribute({interfaceParamInvoke}, {attConst});
     }}
 
-    public static bool Has{attNameUpper}(this IAtt{attGroupNameUpper} e)
+    public static bool Has{attNameUpper}({interfaceParamDef})
     {{
-      return MeiAtt_controller.HasAttribute(e, "{attNameLower}");
+      return MeiAtt_controller.HasAttribute({interfaceParamInvoke}, {attConst});
     }}
 
-    public static void Remove{attNameUpper}(this IAtt{attGroupNameUpper} e)
+    public static void Remove{attNameUpper}({interfaceParamDef})
     {{
-      MeiAtt_controller.RemoveAttribute(e, "{attNameLower}");
-    }}
-    #endregion
-    """
-
-ATT_METHODS_NS = """#region {attNameLower}
-    private static readonly XNamespace ns_{attNameLower} = "{newnamespace}";
-
-    public static void Set{attNameUpper}(this IAtt{attGroupNameUpper} e, string _val)
-    {{
-      MeiAtt_controller.SetAttribute(e, "{attNameLower}", ns_{attNameLower}, _val);
-    }}
-
-    public static XAttribute Get{attNameUpper}(this IAtt{attGroupNameUpper} e)
-    {{
-      return MeiAtt_controller.GetAttribute(e, "{attNameLower}", ns_{attNameLower});
-    }}
-
-    public static bool Has{attNameUpper}(this IAtt{attGroupNameUpper} e)
-    {{
-      return MeiAtt_controller.HasAttribute(e, "{attNameLower}", ns_{attNameLower});
-    }}
-
-    public static void Remove{attNameUpper}(this IAtt{attGroupNameUpper} e)
-    {{
-      MeiAtt_controller.RemoveAttribute(e, "{attNameLower}", ns_{attNameLower});
+      MeiAtt_controller.RemoveAttribute({interfaceParamInvoke}, {attConst});
     }}
     #endregion
-    """
+"""
 
-ATTGROUP_EXTENSION_CLASS = """\n  /// <summary>
+ATTGROUP_EXTENSION_CLASS = """/// <summary>
   /// Extension methods for {attGroupName}
   /// </summary>
   static class Att{attGroupNameUpper}_extensions
@@ -89,7 +65,7 @@ ATTGROUP_EXTENSION_CLASS = """\n  /// <summary>
   }}
 """
 
-ATTGROUP_INTERFACE = """\n  /// <summary>
+ATTGROUP_INTERFACE = """/// <summary>
   /// Interface for {attGroupName}
   /// </summary>
   interface IAtt{attGroupNameUpper} : IMEiAtt{members}
@@ -117,16 +93,16 @@ namespace mei
     {{
         {constructors}
 
-        //attribute methods
+        {attribute_methods}
     }}
 }}
 """
-NS_DECLARATION ="""private static readonly XNamespace ns_{elementName} = "{ns}"
+
+NS_DECLARATION ="""private static readonly XNamespace ns_{objectName} = "{ns}"
 """
 
 ELEMENT_CONSTRUCTORS ="""{ns_decl}
-
-public {elementNameUpper}() : base({elementConst}) {{ }}
+        public {elementNameUpper}() : base({elementConst}) {{ }}
 """
 
 LICENSE = """/////////////////////////////////////////////////////////////////////////////
@@ -163,6 +139,63 @@ def windll_getElementNS(schema, element):
         ns.remove("http://www.music-encoding.org/ns/mei")
 
     return (ns)
+
+def windll_writeAttMethods(attribute, atgroup, schema):
+    # writes attribute methods for the defined attribute
+    prefix = ""
+    exp_ns = ""
+    att_name = ""
+    att_const = ""
+    ns_decl = ""
+
+    # check, if attribute is namespaced
+    if len(attribute.split("|")) > 1:
+        ns, attribute = attribute.split("|")
+
+        #check, if namespace is already in prefix list
+        if ns in NS_PREFIX_MAP:
+            prefix = NS_PREFIX_MAP[ns]
+        else:
+            exp_ns = ns
+
+    att_name = "{0}:{1}".format(prefix, attribute) if prefix != "" else "{0}".format(attribute)
+        
+    #build readonly for explicit namespaces
+    if exp_ns != "":
+        ns_strings = {
+            "ns" : exp_ns,
+            "objectName" : att_name,
+            }
+        ns_decl += NS_DECLARATION.format(**ns_strings)
+    
+    att_const = "\"{0}\"".format(att_name) if exp_ns == "" else "\"{0}\", ns_{0}".format(att_name)
+
+    # Set interface parameter for an attribute of an attribute class or an element
+    interfaceParamDef = ""
+    interfaceParamInvoke = ""
+    interfaceParamDefSet = ""
+    if atgroup != "":
+        interfaceParamDef = "this IAtt{0} e".format(schema.cc(schema.strpatt(atgroup)))
+        interfaceParamDefSet = "this IAtt{0} e, ".format(schema.cc(schema.strpatt(atgroup)))
+        interfaceParamInvoke = "e"
+    else:
+        interfaceParamDef = ""
+        interfaceParamDefSet = ""
+        interfaceParamInvoke = "this"
+
+    att_strings = {
+        "ns_decl" : ns_decl,
+        "attNameUpper" : schema.cc(schema.strpatt(attribute)),
+        "attConst" : att_const,
+        "interfaceParamDef" : interfaceParamDef,
+        "interfaceParamInvoke" : interfaceParamInvoke,
+        "interfaceParamDefSet" : interfaceParamDefSet,
+        "attNameLower" : att_name
+        }
+
+    att_methods = ATT_METHODS.format(**att_strings)
+
+    return (att_methods)
 
 
 def create(schema, outdir):
@@ -227,50 +260,14 @@ def __create_att_classes(schema, outdir):
                 continue
 
             methods = ""
-            prefix = ""
-            namespace = ""
 
             gp_members = windll_getAttClassMembers(schema.schema, gp)
 
             for att in atts:
-                if len(att.split("|")) > 1:
-                    # we have a namespaced attribute
-                    ns,att = att.split("|")
-                    
-                    #nssubstr = {
-                    #    "prefix": NS_PREFIX_MAP[ns],
-                    #    "href": ns
-                    #}
-                    #nsDef = NAMESPACE_TEMPLATE.format(**nssubstr)
-                    attrNs = "s, "
-                    if ns in NS_PREFIX_MAP:
-                        prefix = NS_PREFIX_MAP[ns]
-                    else:
-                        # handling of unkown namespaces
-                        namespace = ns
-                else:
-                    nsDef = ""
-                    attrNs = ""
-                docstr = __get_docstr(schema.getattdocs(att), indent=4)
-                substrings = {
-                    "attNameUpper" : schema.cc(schema.strpatt(att)),
-                    "attNameLower" : "{0}:{1}".format(prefix, att) if prefix != "" else "{0}".format(att),
-                    "attGroupNameUpper": schema.cc(schema.strpatt(gp)),
-                    }
-                substrings_ns = {
-                    "attNameUpper" : schema.cc(schema.strpatt(att)),
-                    "attNameLower" : "{0}:{1}".format(prefix, att) if prefix != "" else "{0}".format(att),
-                    "attGroupNameUpper": schema.cc(schema.strpatt(gp)),
-                    "newnamespace" : namespace
-                    }
                 if len(methods) > 0:
-                    methods += "//\n"
+                    methods += "\n    "
 
-                # if attribute has an unkown namespace, write methods with explicit namespace
-                if namespace != "":
-                    methods += ATT_METHODS_NS.format(**substrings_ns)
-                else:
-                    methods += ATT_METHODS.format(**substrings)
+                methods += windll_writeAttMethods(att, gp, schema)
 
             clsubstrings = {
                 "methods" : methods,
@@ -320,11 +317,16 @@ def __create_element_classes(schema, outdir):
             at_interfaces = ""
             ns_nonmei = ""
             class_constuctors = ""
+            at_methods = ""
 
             # Look for attribute classes and attributes within elementSpec
             for attribute in atgroups:
                 if isinstance(attribute, list):
-                    continue
+                    # self-defined attributes
+                    for sda in attribute:
+                        if len(at_methods) > 0:
+                            at_methods += "\n        "
+                        at_methods += windll_writeAttMethods(sda, "", schema)
 
                 else:
                     at_interfaces += ", I{0}".format(schema.cc(attribute))
@@ -335,7 +337,7 @@ def __create_element_classes(schema, outdir):
             ns_readonly = ""
             if len(ns_nonmei) > 0:
                 ns_strings = {
-                    "elementName" : element,
+                    "objectName" : element,
                     "ns" : ns_nonmei[len(ns_nonmei)-1]
                     }
                 ns_readonly += NS_DECLARATION.format(**ns_strings)
@@ -343,18 +345,22 @@ def __create_element_classes(schema, outdir):
             element_const = "\"{0}\"".format(element) if ns_readonly == "" else "ns_{0}, \"{0}\"".format(element)
 
             const_strings = {
-                "ns_decl" : ns_readonly if ns_readonly != "" else "//bla",
+                "ns_decl" : ns_readonly,
                 "elementConst" : element_const,
                 "elementNameUpper" : schema.cc(element)
                 }
 
             class_constuctors += ELEMENT_CONSTRUCTORS.format(**const_strings)
 
+            # In the case of self-defined attributes, implementing IMeiAtt is not necessary, 
+            # because used methods of XElement are already available within element class.
+
             el_docstrings = {
                 "elementName" : element,
                 "elementNameUpper" : schema.cc(element),
                 "attClassInterfaces" : at_interfaces,
                 "constructors" : class_constuctors,
+                "attribute_methods" : at_methods,
                 "license": LICENSE.format(authors=AUTHORS),
                 }
 
