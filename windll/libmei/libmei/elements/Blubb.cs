@@ -23,7 +23,7 @@ namespace mei
     /// <summary>
     /// Attribute method for attributes defined within an elementSpec
     /// </summary>
-    private void Test()
+    private void HasBla()
     {
       MeiAtt_controller.HasAttribute(this, "bla");
     }
