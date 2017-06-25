@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mei.atts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Xml.Linq;
 
 namespace mei
 {
-  public abstract class MeiElement : XElement
+  public abstract class MeiElement : XElement, IAttId
   {
     public static readonly XNamespace meins = "http://www.music-encoding.org/ns/mei";
 

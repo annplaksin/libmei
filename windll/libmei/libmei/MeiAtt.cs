@@ -65,7 +65,7 @@ namespace mei.atts
     /// <param name="_name">name of attribute</param>
     /// <param name="_ns">namespace of attribute</param>
     /// <param name="_val">value to set</param>
-    public static void SetAttribute(IMEiAtt e, string _name, XNamespace _ns, string _val)
+    internal static void SetAttribute(IMEiAtt e, string _name, XNamespace _ns, string _val)
     {
       if (HasAttribute(e, _name, _ns))
       {
