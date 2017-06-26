@@ -82,44 +82,84 @@ namespace mei
      */
 
     /// <summary>
-    /// Return collection of ancestors of the given type
-    /// Obfuscation of Ancestors(XName)
+    /// Returns a collection of all ancestors
+    /// Obfuscation of XElement.Ancestors()
+    /// </summary>
+    /// <returns>Collection of ancestor elements</returns>
+    public new IEnumerable<MeiElement> Ancestors()
+    {
+      return (IEnumerable<MeiElement>)base.Ancestors();
+    }
+
+    /// <summary>
+    /// Returns a collection of ancestors of the given type
+    /// Obfuscation of XElement.Ancestors(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
-    /// <returns>collection of ancestor elements of the given type</returns>
+    /// <returns>Collection of ancestor elements of the given type</returns>
     public IEnumerable<MeiElement> Ancestors<T>() where T : MeiElement
     {
       return (IEnumerable<MeiElement>)this.Ancestors().Where(element => element is T);
     }
 
     /// <summary>
-    /// Return collection of ancestors (including self) of the given type
-    /// Obfuscation of AncestorsAndSelf(XName)
+    /// Returns a collection of all ancestors (including self)
+    /// Obfuscation of XElement.AncestorsAndSelf()
+    /// </summary>
+    /// <returns>Collection of ancestor elements</returns>
+    public new IEnumerable<MeiElement> AncestorsAndSelf()
+    {
+      return (IEnumerable<MeiElement>)base.AncestorsAndSelf();
+    }
+
+    /// <summary>
+    /// Returns a collection of ancestors (including self) of the given type
+    /// Obfuscation of XElement.AncestorsAndSelf(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
-    /// <returns>collection of ancestor elements of the given type</returns>
+    /// <returns>Collection of ancestor elements of the given type</returns>
     public IEnumerable<MeiElement> AncestorsAndSelf<T>() where T : MeiElement
     {
       return (IEnumerable<MeiElement>)this.AncestorsAndSelf().Where(element => element is T);
     }
 
     /// <summary>
-    /// Return collection of descendants of the given type
-    /// Obfuscation of Descendants(XName)
+    /// Returns a collection of all descendants
+    /// Obfuscation of XElement.Descendants()
+    /// </summary>
+    /// <returns>Collection of descendants elements</returns>
+    public new IEnumerable<MeiElement> Descendants()
+    {
+      return (IEnumerable<MeiElement>)base.Descendants();
+    }
+
+    /// <summary>
+    /// Returns a collection of descendants of the given type
+    /// Obfuscation of XElement.Descendants(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
-    /// <returns>collection of descendants elements of the given type</returns>
+    /// <returns>Collection of descendants elements of the given type</returns>
     public IEnumerable<MeiElement> Descendants<T>() where T : MeiElement
     {
       return (IEnumerable<MeiElement>)this.Descendants().Where(element => element is T);
     }
 
     /// <summary>
-    /// Return collection of descendants (including self) of the given type
-    /// Obfuscation of DescendantsAndSelf(XName)
+    /// Returns a collection of all descendants (including self)
+    /// Obfuscation of XElement.DescendantsAndSelf()
+    /// </summary>
+    /// <returns>Collection of all descendants elements</returns>
+    public new IEnumerable<MeiElement> DescendantsAndSelf()
+    {
+      return (IEnumerable<MeiElement>)base.DescendantsAndSelf();
+    }
+
+    /// <summary>
+    /// Returns a collection of descendants (including self) of the given type
+    /// Obfuscation of XElement.DescendantsAndSelf(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
-    /// <returns>collection of descendants elements of the given type</returns>
+    /// <returns>Collection of descendants elements of the given type</returns>
     public IEnumerable<MeiElement> DescendantsAndSelf<T>() where T : MeiElement
     {
       return (IEnumerable<MeiElement>)this.DescendantsAndSelf().Where(element => element is T);
@@ -127,18 +167,28 @@ namespace mei
 
     /// <summary>
     /// Returns the first child element with specific type
-    /// Workaround for Element(XName)
+    /// Workaround for XElement.Element(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
-    /// <returns>first child MeiElement</returns>
+    /// <returns>First child MeiElement</returns>
     public MeiElement Element<T>() where T : MeiElement
     {
       return (MeiElement)this.Elements().FirstOrDefault(element => element is T);
     }
 
     /// <summary>
-    /// Return collection of child elements of the given type
-    /// Obfuscation of Elements(XName)
+    /// Returns a collection of all child elements
+    /// Obfuscation of XElement.Elements()
+    /// </summary>
+    /// <returns>collection of all child elements</returns>
+    public new IEnumerable<MeiElement> Elements()
+    {
+      return (IEnumerable<MeiElement>)base.Elements();
+    }
+
+    /// <summary>
+    /// Returns a collection of child elements of the given type
+    /// Obfuscation of XElement.Elements(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
     /// <returns>collection of child elements of the given type</returns>
@@ -148,8 +198,18 @@ namespace mei
     }
 
     /// <summary>
+    /// Returns a collection of all sibling element after the current node
+    /// Obfuscation of XElement.ElementsAfterSelf()
+    /// </summary>
+    /// <returns>Collection of sibling elements</returns>
+    public new IEnumerable<MeiElement> ElementsAfterSelf()
+    {
+      return (IEnumerable<MeiElement>)base.ElementsAfterSelf();
+    }
+
+    /// <summary>
     /// Return collection of sibling elements of the given type after the current node
-    /// Obfuscation of ElementsAfterSelf(XName)
+    /// Obfuscation of XElement.ElementsAfterSelf(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
     /// <returns>collection of sibling elements of the given type</returns>
@@ -159,8 +219,18 @@ namespace mei
     }
 
     /// <summary>
+    /// Returns a collection of all sibling element before the current node
+    /// Obfuscation of XElement.ElementsBeforeSelf()
+    /// </summary>
+    /// <returns>Collection of sibling elements</returns>
+    public new IEnumerable<MeiElement> ElementsBeforeSelf()
+    {
+      return (IEnumerable<MeiElement>)base.ElementsBeforeSelf();
+    }
+
+    /// <summary>
     /// Return collection of sibling elements of the given type before the current node
-    /// Obfuscation of Elements(XName)
+    /// Obfuscation of XElement.ElementsBeforeSelf(XName)
     /// </summary>
     /// <typeparam name="T">type of MeiElement</typeparam>
     /// <returns>collection of sibling elements of the given type</returns>
@@ -171,6 +241,8 @@ namespace mei
     #endregion
 
     #region Attribute methods
+    //this.HasAttributes
+
     //getAttributes() -> XElement.Attributes()
 
     //setAttributes() -> within constructor or: for each (att in atts( {element.Add(att);} and 
@@ -187,7 +259,7 @@ namespace mei
     /// Changes parent of current element
     /// </summary>
     /// <param name="_parent">new parent node</param>
-    protected void SetParent(XElement _parent)
+    public void SetParent(XElement _parent)
     {
       //Remove current element from its parent
       this.Remove();
@@ -200,7 +272,7 @@ namespace mei
     /// Checks for parent of an element
     /// </summary>
     /// <returns>true if element has parent</returns>
-    protected bool HasParent()
+    public bool HasParent()
     {
       return (this.Parent != null) ;
     }
@@ -211,55 +283,81 @@ namespace mei
 
     //XElement.SetElementValue(XName, Object)
 
-    /**
-     * \brief Add an element as a child before the specifed element.
-     */
-    //addChildBefore(MeiElement* before, MeiElement* child) -> this.
+    //addChildBefore() -> XElement.AddBeforeSelf(Object) & XElement.AddAfterSelf(Object)
 
-    /**
-     * \brief set the children of this element to be the given children.
-     *
-     * This will remove any existing children.
-     */
-    //void setChildren(std::vector<MeiElement*> children);
+    /// <summary>
+    /// Set the children of this element to be the given children.
+    /// This will remove any existing children!
+    /// </summary>
+    /// <param name="_newChildren">Collection of new children</param>
+    public void SetChildren(IEnumerable<MeiElement> _newChildren)
+    {
+      ReplaceNodes(_newChildren);
+    }
 
-    /**
-     * \brief Get all of the children of this element.
-     */
-    //const std::vector<MeiElement*>& getChildren();
+    /// <summary>
+    /// Get all of the children of this element.
+    /// </summary>
+    /// <returns>IEnumerable with all children</returns>
+    public IEnumerable<MeiElement> GetChildren()
+    {
+      return this.Elements();
+    }
 
-    /**
-     * \brief Get all of the children of this element that have a given name.
-     */
-    //const std::vector<MeiElement*> getChildrenByName(std::string name);
-
-    /**
-     * \brief Remove all of the children of this element.
-     *
-     * The children are deleted and removed from the element.
-     */
-    //void deleteAllChildren();
-
-    /**
-     * \brief Remove the children from this element that have a given name.
-     */
-    //void removeChildrenByName(std::string cname);
-
-    /**
-     * \brief Remove the specified element as a child from this element.
-     *
-     * Elements are compared by memory address. It is the responsibility
-     * of the caller to free elements after they have been removed.
-     */
-    //void removeChild(MeiElement* child);
+    /// <summary>
+    /// Get all of the children of this element that have a given type.
+    /// </summary>
+    /// <returns>IEnumerable with children</returns>
+    public IEnumerable<MeiElement> GetChildrenByType<T> () where T : MeiElement
+    {
+      return this.Elements<T>();
+    }
     
+    /// <summary>
+    /// Remove all of the children of this element.
+    /// The children are deleted and removed from the element.
+    /// </summary>
+    public void DeleteAllChildren()
+    {
+      foreach (MeiElement child in this.Elements())
+      {
+        child.Remove();
+      }
+    }
 
-    //hasChildren -> this.HasElements
+    /// <summary>
+    /// Remove the children from this element that have a given type.
+    /// </summary>
+    /// <typeparam name="T">Type of MeiElement</typeparam>
+    public void RemoveChildrenByType<T>() where T : MeiElement
+    {
+      foreach (MeiElement child in Elements<T>())
+      {
+        child.Remove();
+      }
+    }
 
-    /**
-     * \brief Check if this element has any children with the given name.
-     */
-    //bool hasChildren(std::string cname);
+    /// <summary>
+    /// Remove the specified element as a child from this element.
+    /// Elements are compared by memory address. It is the responsibility
+    /// of the caller to free elements after they have been removed.
+    /// </summary>
+    /// <param name="_child">Child to be removed</param>
+    public void RemoveChild(MeiElement _child)
+    {
+      _child.Remove();
+    }
+
+    /// <summary>
+    /// Check if this element has any children with the given type.
+    /// </summary>
+    /// <returns>true if element has children with given type</returns>
+    public bool HasChildren<T>() where T : MeiElement
+    {
+      return (Elements<T>().Count() > 0);
+    }
+
+    //hasChildren() -> this.HasElements
 
     #endregion
   }
