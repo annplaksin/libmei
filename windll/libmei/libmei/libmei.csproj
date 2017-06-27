@@ -47,7 +47,10 @@
     <Compile Include="elements\Blubb.cs" />
     <Compile Include="MeiAtt.cs" />
     <Compile Include="elements\Note.cs" />
+    <Compile Include="MeiDocument.cs" />
     <Compile Include="MeiElement.cs" />
+    <Compile Include="MeiExport.cs" />
+    <Compile Include="MeiImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
