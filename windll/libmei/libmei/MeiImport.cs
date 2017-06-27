@@ -66,8 +66,17 @@ namespace mei
       }
 
       //if all extracted strings are equal, set schemaLocation
+      if (schemaLocs.Count > 0 && schemaLocs.Where(loc => loc == schemaLocs[0]).Count() == schemaLocs.Count)
+      {
+        schemaLocation = schemaLocs[0];
+        _otherPIs = pIs.Where(pI => pI.Target != "xml-model");
+      }
+      else
+      {
+        _otherPIs = pIs;
+      }
 
-      _otherPIs = pIs.Where(pI => pI.Target != "xml-model");
+      
 
       return schemaLocation;
     }
