@@ -24,21 +24,27 @@ namespace mei
     /// </summary>
     /// <param name="_root">Content root node</param>
     /// <param name="_schemaLocation">Location of MEI schema to link</param>
-    internal MeiDocument(MeiElement _root, string _schemaLocation) : base(_root)
+    public MeiDocument(MeiElement _root, string _schemaLocation) : base(_root)
     {
       this.SchemaLocation = _schemaLocation;
       WriteSchemaProcessingInstructions();
 
-      this.MeiVersion = _root.Attribute("meiversion").Value;
+      if (_root.Attribute("meiversion") != null)
+      {
+        this.MeiVersion = _root.Attribute("meiversion").Value;
+      }
     }
 
     /// <summary>
     /// Constructor with content
     /// </summary>
     /// <param name="_root">Content root node</param>
-    internal MeiDocument(MeiElement _root) : base(_root)
+    public MeiDocument(MeiElement _root) : base(_root)
     {
-      this.MeiVersion = _root.Attribute("meiversion").Value;
+      if(_root.Attribute("meiversion") != null)
+      {
+        this.MeiVersion = _root.Attribute("meiversion").Value;
+      }
     }
 
     /// <summary>
@@ -48,12 +54,15 @@ namespace mei
     /// <param name="_xmldecl">Xml declaration</param>
     /// <param name="_root">Content root node</param>
     /// <param name="_schemaLocation">Location of MEI schema to link</param>
-    internal MeiDocument(XDeclaration _xmldecl, MeiElement _root, string _schemaLocation) : base (_xmldecl, _root)
+    public MeiDocument(XDeclaration _xmldecl, MeiElement _root, string _schemaLocation) : base (_xmldecl, _root)
     {
       this.SchemaLocation = _schemaLocation;
       WriteSchemaProcessingInstructions();
 
-      this.MeiVersion = _root.Attribute("meiversion").Value;
+      if (_root.Attribute("meiversion") != null)
+      {
+        this.MeiVersion = _root.Attribute("meiversion").Value;
+      }
     }
 
     /// <summary>
@@ -62,21 +71,26 @@ namespace mei
     /// </summary>
     /// <param name="_xmldecl">Xml declaration</param>
     /// <param name="_root">Content root node</param>
-    internal MeiDocument(XDeclaration _xmldecl, MeiElement _root) : base(_xmldecl, _root)
+    public MeiDocument(XDeclaration _xmldecl, MeiElement _root) : base(_xmldecl, _root)
     {
-      this.MeiVersion = _root.Attribute("meiversion").Value;
+      if (_root.Attribute("meiversion") != null)
+      {
+        this.MeiVersion = _root.Attribute("meiversion").Value;
+      }
     }
 
     /// <summary>
     /// Writes MeiVersion property as mei/@meiversion
     /// </summary>
-    public void WriteMeiVersion()
+    /*public void WriteMeiVersion()
     {
       if (this.MeiVersion != null)
       {
-        //Add MeiVersion as @meiversion to document root <mei>
+        //Add MeiVersion as @meiversion to document root node...
+        //Needs to check for object type Mei
+        this.Root.Add(new XAttribute("meiversion", this.MeiVersion));
       }
-    }
+    }*/
 
     /// <summary>
     /// Overwrites schema location of the document and creates the processing instructions
