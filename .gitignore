@@ -48,3 +48,6 @@ windll/libmei/libmei/obj/
 /tools/includes/mei-Mensural_sourceEncoding.xml
 /tools/windll_mse
 /tools/mei-Mensural_sourceEncoding.xml
+/windll/libmei/packages
+/windll/libmei/libmeiTests/bin/Debug
+/windll/libmei/libmeiTests/obj/Debug
