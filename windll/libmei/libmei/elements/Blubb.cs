@@ -24,6 +24,12 @@ namespace mei
     /// Constructor with content
     /// </summary>
     /// <param name="_content">content of element</param>
+    public Blubb(object[] _content) : base(ns_blubb, "blubb", _content) { }
+
+    /// <summary>
+    /// Constructor with content
+    /// </summary>
+    /// <param name="_content">content of element</param>
     public Blubb(object _content) : base(ns_blubb, "blubb", _content) { }
 
     /// <summary>

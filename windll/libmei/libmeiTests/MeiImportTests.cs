@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace mei.Tests
 {
@@ -15,6 +16,18 @@ namespace mei.Tests
     public void ImportDocumentTest()
     {
       Assert.Fail();
+    }
+
+    [TestMethod()]
+    public void XmlToMeiTest()
+    {
+      XElement testelement = new XElement("blubb", new XElement("note","bla"));
+
+      MeiElement compare = new Blubb();
+
+      MeiElement test = MeiImport.XmlToMei(testelement);
+      
+      Assert.IsInstanceOfType(test, compare.GetType());
     }
   }
 }

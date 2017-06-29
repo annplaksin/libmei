@@ -14,6 +14,10 @@ namespace mei
   public class Note : MeiElement, IAttCommon
   {
     public Note() : base("note") { }
+
+    public Note(object _content) : base("note", _content) { }
+
+    public Note(object[] _content) : base("note", _content) { }
   }
 
 }

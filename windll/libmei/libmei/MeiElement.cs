@@ -29,6 +29,16 @@ namespace mei
     /// </summary>
     /// <param name="_name">name of element</param>
     /// <param name="_content">content of element</param>
+    public MeiElement(string _name, object[] _content) : base(meins + _name, _content)
+    {
+      this.GenerateAndSetID();
+    }
+
+    /// <summary>
+    /// Constructor with MEI namespace and content
+    /// </summary>
+    /// <param name="_name">name of element</param>
+    /// <param name="_content">content of element</param>
     public MeiElement(string _name, object _content) : base(meins + _name, _content)
     {
       this.GenerateAndSetID();
@@ -50,7 +60,18 @@ namespace mei
     /// <param name="_namespace">namespace of element</param>
     /// <param name="_name">name of element</param>
     /// <param name="_content">content of element</param>
-    protected MeiElement(XNamespace _namespace, string _name, object _content) : base (_namespace + _name, _content)
+    protected MeiElement(XNamespace _namespace, string _name, object _content) : base(_namespace + _name, _content)
+    {
+      this.GenerateAndSetID();
+    }
+
+    /// <summary>
+    /// Constructor with explicit namespace and content
+    /// </summary>
+    /// <param name="_namespace">namespace of element</param>
+    /// <param name="_name">name of element</param>
+    /// <param name="_content">content of element</param>
+    protected MeiElement(XNamespace _namespace, string _name, object[] _content) : base (_namespace + _name, _content)
     {
       this.GenerateAndSetID();
     }

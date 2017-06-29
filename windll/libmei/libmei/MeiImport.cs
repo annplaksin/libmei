@@ -32,7 +32,6 @@ namespace mei
 
     }
 
-    //public ImportXElement() tbc
     //public ImportString() tbc
 
     /// <summary>
@@ -40,12 +39,20 @@ namespace mei
     /// </summary>
     /// <param name="_node">XElement with content</param>
     /// <returns>Mei element with content</returns>
-    private static MeiElement XmlToMei(XElement _node)
+    public static MeiElement XmlToMei(XElement _node)
     {
-      //Start rekursive method
+      
+
+      //Start recursive method
       return (MeiElement)CreateNode(_node);
     }
 
+    /// <summary>
+    /// Creates node for an MEI document.
+    /// If XObject is an element, it tries to create an MeiElement from it. If it fails or in all other cases, it copies the node.
+    /// </summary>
+    /// <param name="_node">XObject to convert</param>
+    /// <returns>Node and descendants</returns>
     private static XObject CreateNode(XObject _node)
     {
       XObject node;
@@ -57,15 +64,22 @@ namespace mei
         //Try invokation voodoo to create MEI object from XElement
         try
         {
-          elementNode = (MeiElement)Type.GetType(element.Name.LocalName, true).GetConstructor(new Type[] {  }).Invoke(new object[] {  });
+           elementNode = (MeiElement)Type.GetType("mei." + element.Name.LocalName, true, true).GetConstructor(new Type[] {  }).Invoke(new object[] {  });
         }
-        //If failing, take XElement
+        //If failing, create new XElement
         catch
         {
-          elementNode = element;
+          elementNode = new XElement(element.Name);
         }
 
-        foreach (XObject child in element.Nodes())
+        //Process attributes
+        foreach(XAttribute att in element.Attributes())
+        {
+          elementNode.Add(CreateNode(att));
+        }
+
+        //Process child nodes
+        foreach (XNode child in element.Nodes())
         {
           elementNode.Add(CreateNode(child));
         }
