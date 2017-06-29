@@ -103,6 +103,8 @@ NS_DECLARATION ="""private static readonly XNamespace ns_{objectName} = "{ns}"
 
 ELEMENT_CONSTRUCTORS ="""{ns_decl}
         public {elementNameUpper}() : base({elementConst}) {{ }}
+
+        public {elementNameUpper}(object _content) : base({elementConst}, _content) {{ }}
 """
 
 LICENSE = """/////////////////////////////////////////////////////////////////////////////
