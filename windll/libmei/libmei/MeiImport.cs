@@ -32,7 +32,8 @@ namespace mei
 
     }
 
-    //ImportString() tbc
+    //public ImportXElement() tbc
+    //public ImportString() tbc
 
     /// <summary>
     /// Converts a tree of XElements into Mei
@@ -41,13 +42,44 @@ namespace mei
     /// <returns>Mei element with content</returns>
     private static MeiElement XmlToMei(XElement _node)
     {
-      //Invoke-Voodoo o_O
-      //MeiElement bla = (MeiElement)Type.GetType(XElement.Name.LocalName, true).GetConstructor(new Type[] { }).Invoke(new object[] { });
+      //Start rekursive method
+      return (MeiElement)CreateNode(_node);
+    }
 
-      foreach (XElement element in _node.DescendantsAndSelf())
+    private static XObject CreateNode(XObject _node)
+    {
+      XObject node;
+
+      if (_node is XElement element)
       {
+        XElement elementNode;
+
+        //Try invokation voodoo to create MEI object from XElement
+        try
+        {
+          elementNode = (MeiElement)Type.GetType(element.Name.LocalName, true).GetConstructor(new Type[] {  }).Invoke(new object[] {  });
+        }
+        //If failing, take XElement
+        catch
+        {
+          elementNode = element;
+        }
+
+        foreach (XObject child in element.Nodes())
+        {
+          elementNode.Add(CreateNode(child));
+        }
+
+        node = elementNode;
 
       }
+      //Every non-element node will be copied
+      else
+      {
+        node = _node;
+      }
+
+      return node;
     }
 
     /// <summary>
