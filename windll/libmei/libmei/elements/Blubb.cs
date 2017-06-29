@@ -24,7 +24,7 @@ namespace mei
     /// Constructor with content
     /// </summary>
     /// <param name="_content">content of element</param>
-    public Blubb(object[] _content) : base(ns_blubb, "blubb", _content) { }
+    public Blubb(params object[] _content) : base(ns_blubb, "blubb", _content) { }
 
     /// <summary>
     /// Constructor with content
@@ -35,9 +35,9 @@ namespace mei
     /// <summary>
     /// Attribute method for attributes defined within an elementSpec
     /// </summary>
-    private void HasBla()
+    public bool HasBla()
     {
-      MeiAtt_controller.HasAttribute(this, "bla");
+      return MeiAtt_controller.HasAttribute(this, "bla");
     }
   }
 

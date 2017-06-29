@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace mei.Tests
 {
@@ -14,13 +15,33 @@ namespace mei.Tests
     [TestMethod()]
     public void BlubbTest()
     {
-      Assert.Fail();
+      Blubb test = new Blubb();
+
+      Assert.IsNotNull(test);
     }
 
     [TestMethod()]
     public void BlubbTest1()
     {
-      Assert.Fail();
+      Blubb test = new Blubb("content");
+
+      Assert.AreEqual("content",test.Value.ToString());
+    }
+
+    [TestMethod()]
+    public void BlubbTest2()
+    {
+      Blubb test = new Blubb(new XAttribute("bla", "att"), "content");
+
+      Assert.IsNotNull(test);
+    }
+
+    [TestMethod()]
+    public void HasBlaTest()
+    {
+      Blubb test = new Blubb(new XAttribute("bla", "att"));
+
+      Assert.IsTrue(test.HasBla());
     }
   }
 }
