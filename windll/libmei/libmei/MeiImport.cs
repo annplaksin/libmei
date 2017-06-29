@@ -41,10 +41,16 @@ namespace mei
     /// <returns>Mei element with content</returns>
     public static MeiElement XmlToMei(XElement _node)
     {
-      
+      XObject root = CreateNode(_node);
 
-      //Start recursive method
-      return (MeiElement)CreateNode(_node);
+      if (root is MeiElement element)
+      {
+        return element;
+      }
+      else
+      {
+        throw new InvalidCastException("Root element is no valid MEI element!");
+      }
     }
 
     /// <summary>
