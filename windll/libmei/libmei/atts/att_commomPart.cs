@@ -10,7 +10,7 @@ namespace mei.atts
   /// <summary>
   /// Interface for att.commonPart
   /// </summary>
-  interface IAttCommonPart : IMEiAtt, IAttId
+  public interface IAttCommonPart : IMEiAtt
   {
 
   }
@@ -18,7 +18,7 @@ namespace mei.atts
   /// <summary>
   /// Extension methods for att.commonPart
   /// </summary>
-  static class AttCommomPart_extensions
+  public static class AttCommomPart_extensions
   {
     #region label
     public static void SetLabel(this IAttCommonPart e, string _val)

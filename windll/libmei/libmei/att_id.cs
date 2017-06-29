@@ -11,7 +11,7 @@ namespace mei.atts
   /// <summary>
   /// Interface for att.id
   /// </summary>
-  interface IAttId : IMEiAtt
+  public interface IAttId : IMEiAtt
   {
 
   }
@@ -19,7 +19,7 @@ namespace mei.atts
   /// <summary>
   /// Extension methods for att.id
   /// </summary>
-  static class AttId_extensions
+  public static class AttId_extensions
   {
     #region xml:id
     public static void SetId(this IAttId e, string _val)

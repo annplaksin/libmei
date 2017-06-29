@@ -10,7 +10,7 @@ namespace mei.atts
   /// <summary>
   /// Interface for att.common
   /// </summary>
-  interface IAttCommon : IMEiAtt, IAttCommonPart
+  public interface IAttCommon : IMEiAtt, IAttCommonPart
   {
 
   }
@@ -18,7 +18,7 @@ namespace mei.atts
   /// <summary>
   /// Extension methods for att.common
   /// </summary>
-  static class AttCommon_extensions
+  public static class AttCommon_extensions
   {
     #region n
     public static void SetN(this IAttCommon e, string _val)

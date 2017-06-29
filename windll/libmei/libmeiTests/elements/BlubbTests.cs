@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using mei;
+using mei.atts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,24 @@ namespace mei.Tests
       Blubb test = new Blubb(new XAttribute("bla", "att"));
 
       Assert.IsTrue(test.HasBla());
+    }
+
+    [TestMethod()]
+    public void SetNTest()
+    {
+      Blubb test = new Blubb();
+      test.SetN("1");
+
+      Assert.IsNotNull(test.Attribute("n"));
+    }
+
+    [TestMethod()]
+    public void SetLabelTest()
+    {
+      Blubb test = new Blubb();
+      test.SetLabel("hallo");
+
+      Assert.IsNotNull(test.Attribute("label"));
     }
   }
 }

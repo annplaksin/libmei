@@ -10,7 +10,7 @@ namespace mei.atts
   /// <summary>
   /// Basic interface for all attribute class interfaces
   /// </summary>
-  interface IMEiAtt
+  public interface IMEiAtt
   {
     void Add(Object obj);
 
@@ -23,7 +23,7 @@ namespace mei.atts
   /// <summary>
   /// Basis extension class for all attribute class extension classes
   /// </summary>
-  static class MeiAtt_controller
+  public static class MeiAtt_controller
   {
     //Declare XLink namespace
     private static readonly XNamespace xlink = "http://www.w3.org/1999/xlink";
