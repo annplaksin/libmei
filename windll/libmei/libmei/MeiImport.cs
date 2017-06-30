@@ -83,6 +83,20 @@ namespace mei
         {
           elementNode.Add(CreateNode(att));
         }
+        //ID handling for MEI elements
+        if(elementNode is MeiElement meiNode)
+        {
+          if (meiNode.HasId())
+          {
+            meiNode.ID = meiNode.GetId().Value;
+          }
+          else
+          {
+            meiNode.SetId(meiNode.ID);
+          }
+
+          elementNode = meiNode;
+        }
 
         //Process child nodes
         foreach (XNode child in element.Nodes())

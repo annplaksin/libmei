@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using mei.atts;
 
-namespace mei.atts
+namespace mei
 {
   /// <summary>
   /// Interface for att.id

@@ -1,5 +1,4 @@
-﻿using mei.atts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,7 +119,7 @@ namespace mei
     /// <returns>Collection of ancestor elements of the given type</returns>
     public IEnumerable<MeiElement> Ancestors<T>() where T : MeiElement
     {
-      return (IEnumerable<MeiElement>)this.Ancestors().Where(element => element is T);
+      return (IEnumerable<MeiElement>)base.Ancestors().Where(element => element is T);
     }
 
     /// <summary>
@@ -141,7 +140,7 @@ namespace mei
     /// <returns>Collection of ancestor elements of the given type</returns>
     public IEnumerable<MeiElement> AncestorsAndSelf<T>() where T : MeiElement
     {
-      return (IEnumerable<MeiElement>)this.AncestorsAndSelf().Where(element => element is T);
+      return (IEnumerable<MeiElement>)base.AncestorsAndSelf().Where(element => element is T);
     }
 
     /// <summary>
@@ -162,7 +161,7 @@ namespace mei
     /// <returns>Collection of descendants elements of the given type</returns>
     public IEnumerable<MeiElement> Descendants<T>() where T : MeiElement
     {
-      return (IEnumerable<MeiElement>)this.Descendants().Where(element => element is T);
+      return (IEnumerable<MeiElement>)base.Descendants().Where(element => element is T);
     }
 
     /// <summary>
@@ -183,7 +182,7 @@ namespace mei
     /// <returns>Collection of descendants elements of the given type</returns>
     public IEnumerable<MeiElement> DescendantsAndSelf<T>() where T : MeiElement
     {
-      return (IEnumerable<MeiElement>)this.DescendantsAndSelf().Where(element => element is T);
+      return (IEnumerable<MeiElement>)base.DescendantsAndSelf().Where(element => element is T);
     }
 
     /// <summary>
@@ -194,7 +193,7 @@ namespace mei
     /// <returns>First child MeiElement</returns>
     public MeiElement Element<T>() where T : MeiElement
     {
-      return (MeiElement)this.Elements().FirstOrDefault(element => element is T);
+      return (MeiElement)base.Elements().FirstOrDefault(element => element is T);
     }
 
     /// <summary>
@@ -215,7 +214,7 @@ namespace mei
     /// <returns>collection of child elements of the given type</returns>
     public IEnumerable<MeiElement> Elements<T>() where T : MeiElement
     {
-      return (IEnumerable<MeiElement>)this.Elements().Where(element => element is T);
+      return (IEnumerable<MeiElement>)base.Elements().Where(element => element is T);
     }
 
     /// <summary>
@@ -236,7 +235,7 @@ namespace mei
     /// <returns>collection of sibling elements of the given type</returns>
     public IEnumerable<MeiElement> ElementsAfterSelf<T>() where T : MeiElement
     {
-      return (IEnumerable<MeiElement>)this.ElementsAfterSelf().Where(element => element is T);
+      return (IEnumerable<MeiElement>)base.ElementsAfterSelf().Where(element => element is T);
     }
 
     /// <summary>
@@ -257,7 +256,7 @@ namespace mei
     /// <returns>collection of sibling elements of the given type</returns>
     public IEnumerable<MeiElement> ElementsBeforeSelf<T>() where T : MeiElement
     {
-      return (IEnumerable<MeiElement>)this.ElementsBeforeSelf().Where(element => element is T);
+      return (IEnumerable<MeiElement>)base.ElementsBeforeSelf().Where(element => element is T);
     }
     #endregion
 

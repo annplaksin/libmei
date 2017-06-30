@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace mei.atts
+namespace mei
 {
   /// <summary>
   /// Interface for att.commonPart

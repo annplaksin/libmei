@@ -29,5 +29,17 @@ namespace mei.Tests
       
       Assert.IsInstanceOfType(test, compare.GetType());
     }
+
+    [TestMethod()]
+    public void TestIDHandling()
+    {
+      XElement testelement = new XElement("blubb", new XElement("note", "bla"), new XAttribute(XNamespace.Xml + "id", "test"));
+
+      MeiElement test = MeiImport.XmlToMei(testelement);
+
+      Assert.AreEqual(test.GetId().Value, "test");
+      Assert.AreEqual(test.ID, "test");
+      Assert.IsNotNull(test.Element<Note>().GetId());
+    }
   }
 }

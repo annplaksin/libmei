@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace mei.atts
+namespace mei
 {
   /// <summary>
   /// Basic interface for all attribute class interfaces
@@ -28,6 +28,29 @@ namespace mei.atts
     //Declare XLink namespace
     private static readonly XNamespace xlink = "http://www.w3.org/1999/xlink";
 
+    #region NewAttribute
+    /*internal static XAttribute NewAttribute(IMEiAtt e, string _name, string _val)
+    {
+      if (_name.StartsWith("xml:"))
+      {
+        return NewAttribute(e, _name, XNamespace.Xml, _val);
+      }
+      if (_name.StartsWith("xlink:"))
+      {
+        return NewAttribute(e, _name, xlink, _val);
+      }
+      else
+      {
+        return new XAttribute(_name, _val);
+      }
+    }
+
+    internal static XAttribute NewAttribute(IMEiAtt e, string _name, XNamespace _ns, string _val)
+    {
+      return new XAttribute(_ns + _name, _val);
+    }*/
+    #endregion
+
     #region SetAttribute
     /// <summary>
     /// Sets the value of an attribute by name
@@ -39,11 +62,11 @@ namespace mei.atts
     {
       if (_name.StartsWith("xml:"))
       {
-        SetAttribute(e, _name, XNamespace.Xml, _val);
+        SetAttribute(e, _name.Substring(4), XNamespace.Xml, _val);
       }
-      if (_name.StartsWith("xlink:"))
+      else if (_name.StartsWith("xlink:"))
       {
-        SetAttribute(e, _name, xlink, _val);
+        SetAttribute(e, _name.Substring(6), xlink, _val);
       }
       else
       {
@@ -89,11 +112,11 @@ namespace mei.atts
     {
       if (_name.StartsWith("xml:"))
       {
-        return GetAttribute(e, _name, XNamespace.Xml);
+        return GetAttribute(e, _name.Substring(4), XNamespace.Xml);
       }
-      if (_name.StartsWith("xlink:"))
+      else if (_name.StartsWith("xlink:"))
       {
-        return GetAttribute(e, _name, xlink);
+        return GetAttribute(e, _name.Substring(6), xlink);
       }
       else
       {
@@ -140,11 +163,11 @@ namespace mei.atts
     {
       if (_name.StartsWith("xml:"))
       {
-        return HasAttribute(e, _name, XNamespace.Xml);
+        return HasAttribute(e, _name.Substring(4), XNamespace.Xml);
       }
-      if (_name.StartsWith("xlink:"))
+      else if (_name.StartsWith("xlink:"))
       {
-        return HasAttribute(e, _name, xlink);
+        return HasAttribute(e, _name.Substring(6), xlink);
       }
       else
       {
@@ -175,11 +198,11 @@ namespace mei.atts
     {
       if (_name.StartsWith("xml:"))
       {
-        RemoveAttribute(e, _name, XNamespace.Xml);
+        RemoveAttribute(e, _name.Substring(4), XNamespace.Xml);
       }
-      if (_name.StartsWith("xlink:"))
+      else if (_name.StartsWith("xlink:"))
       {
-        RemoveAttribute(e, _name, xlink);
+        RemoveAttribute(e, _name.Substring(6), xlink);
       }
       else
       {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace mei.atts
+namespace mei
 {
   /// <summary>
   /// Interface for att.common
@@ -21,6 +21,11 @@ namespace mei.atts
   public static class AttCommon_extensions
   {
     #region n
+    /*public static XAttribute NewN(this IAttCommon e, string _val)
+    {
+      return MeiAtt_controller.NewAttribute(e, "n", _val);
+    }*/
+
     public static void SetN(this IAttCommon e, string _val)
     {
       MeiAtt_controller.SetAttribute(e, "n", _val);

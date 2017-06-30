@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace mei.atts
+namespace mei
 {
 
   /*
@@ -29,7 +29,7 @@ namespace mei.atts
    */
 
   /// <summary>
-  /// Interface for att.id
+  /// Interface for att.bla
   /// </summary>
   interface IAttBla : IMEiAtt
   {
