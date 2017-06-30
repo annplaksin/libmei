@@ -25,7 +25,7 @@ using System.Xml.Linq;
 
 {license}
 
-namespace mei.atts
+namespace mei
 {{
     {interfaces}
 
@@ -80,7 +80,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using mei.atts;
 
 {license}
 
