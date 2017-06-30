@@ -61,5 +61,16 @@ namespace mei.Tests
 
       Assert.IsNotNull(test.Attribute("label"));
     }
+
+    [TestMethod()]
+    public void GetLabelTest()
+    {
+      Blubb test = new Blubb();
+      test.SetLabel("testor");
+
+      XAttribute check = test.GetLabel();
+
+      Assert.IsNotNull(check);
+    }
   }
 }
