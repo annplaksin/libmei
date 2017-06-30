@@ -11,7 +11,7 @@ namespace mei
   {
     public static readonly XNamespace meins = "http://www.music-encoding.org/ns/mei";
 
-    public string ID { get; set; } = null;
+    //public string ID { get; set; } = null;
 
     #region Constructors
     /// <summary>
@@ -78,9 +78,9 @@ namespace mei
 
     private void GenerateAndSetID()
     {
-      if(ID == null)
+      if(this.HasId() == false)
       {
-        ID = string.Concat("m-", Guid.NewGuid().ToString().ToLower());
+        this.SetId(string.Concat("m-", Guid.NewGuid().ToString().ToLower()));
       }
     }
 
