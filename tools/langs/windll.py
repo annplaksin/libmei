@@ -105,6 +105,8 @@ ELEMENT_CONSTRUCTORS ="""{ns_decl}
         public {elementNameUpper}() : base({elementConst}) {{ }}
 
         public {elementNameUpper}(object _content) : base({elementConst}, _content) {{ }}
+
+        public {elementNameUpper}(params object[] _content) : base({elementConst}, _content) {{ }}
 """
 
 LICENSE = """/////////////////////////////////////////////////////////////////////////////
