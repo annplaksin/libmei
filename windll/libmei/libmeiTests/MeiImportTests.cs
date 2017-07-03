@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace mei.Tests
 {
@@ -30,6 +31,47 @@ namespace mei.Tests
     }
 
     [TestMethod()]
+    public void ImportDocumentTest3()
+    {
+      MeiDocument testDoc = MeiImport.ImportDocument("..\\..\\files\\MeiImportTest3.xml");
+
+      IEnumerable<XProcessingInstruction> models = from node in testDoc.Nodes().OfType<XProcessingInstruction>().Where(node => node.Target == "xml-model") select node;
+
+      List<string> href_compare = new List<string>();
+
+      Match hrefs;
+
+      foreach (XProcessingInstruction model in models)
+      {
+        //Get schemaLocation from pImodel.Data
+        //See example here: https://msdn.microsoft.com/de-de/library/t9e807fx(v=vs.110).aspx
+
+        string HRefPattern = "href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))";
+
+        try
+        {
+          hrefs = Regex.Match(model.Data, HRefPattern,
+                      RegexOptions.IgnoreCase | RegexOptions.Compiled,
+                      TimeSpan.FromSeconds(1));
+          while (hrefs.Success)
+          {
+            href_compare.Add(hrefs.Groups[1].ToString());
+            hrefs = hrefs.NextMatch();
+          }
+        }
+
+        catch (RegexMatchTimeoutException)
+        {
+          break;
+        }
+
+      }
+
+      Assert.AreEqual(testDoc.SchemaLocation, string.Empty);
+      CollectionAssert.AllItemsAreUnique(href_compare);
+    }
+
+    [TestMethod()]
     public void ImportExportCompare()
     {
       XDocument xDoc = XDocument.Load("..\\..\\files\\MeiImportTest2.xml");
@@ -51,6 +93,15 @@ namespace mei.Tests
       MeiElement test = MeiImport.XmlToMei(testelement);
       
       Assert.IsInstanceOfType(test, compare.GetType());
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidCastException))]
+    public void InvalidRootTest()
+    {
+      XElement testelement = new XElement("bla", new XElement("blubb", new XElement("note")));
+
+      MeiElement conversion_test = MeiImport.XmlToMei(testelement);
     }
 
     [TestMethod()]

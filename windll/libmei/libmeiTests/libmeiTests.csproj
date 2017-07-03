@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="files\MeiImportExportTest.xml" />
+    <Content Include="files\MeiImportTest3.xml" />
     <Content Include="files\MeiImportTest2.xml" />
     <Content Include="files\MeiImportTest1.xml" />
   </ItemGroup>

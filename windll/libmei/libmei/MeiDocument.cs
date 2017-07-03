@@ -107,7 +107,7 @@ namespace mei
     /// </summary>
     private void WriteSchemaProcessingInstructions()
     {
-      if (this.SchemaLocation != null)
+      if (this.SchemaLocation != string.Empty)
       {
         XProcessingInstruction rng = new XProcessingInstruction("xml-model", string.Format("href='{0}' type='application/xml' schematypens='http://relaxng.org/ns/structure/1.0'", this.SchemaLocation));
         XProcessingInstruction schematron = new XProcessingInstruction("xml-model", string.Format("href='{0}' type='application / xml' schematypens='http://purl.oclc.org/dsdl/schematron'", this.SchemaLocation));

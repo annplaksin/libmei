@@ -117,7 +117,7 @@ namespace mei
     /// <returns>Schema uri string</returns>
     private static string ReadProcessingInstructions(XDocument _doc, out IEnumerable<XProcessingInstruction> _otherPIs)
     {
-      string schemaLocation = "";
+      string schemaLocation = string.Empty;
 
       List<string> schemaLocs = new List<string>();
 
