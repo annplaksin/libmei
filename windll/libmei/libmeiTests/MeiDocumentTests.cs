@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.IO;
 
 namespace mei.Tests
 {
@@ -30,6 +31,24 @@ namespace mei.Tests
       MeiDocument testDoc = new MeiDocument(blubb);
 
       Assert.IsNotNull(testDoc);
+    }
+
+    [TestMethod()]
+    public void SaveDocumentTest()
+    {
+      if(File.Exists("test.xml"))
+      {
+        File.Delete("test.xml");
+      }
+
+      MeiDocument testDoc = new MeiDocument(new Blubb(new XAttribute("bla", "foo")));
+      testDoc.SetSchemaLocation("foobarfoobarfoo");
+
+      testDoc.Save("test.xml");
+
+      bool check = File.Exists("test.xml");
+
+      Assert.IsTrue(check);
     }
   }
 }

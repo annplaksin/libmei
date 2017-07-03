@@ -49,7 +49,6 @@
     <Compile Include="elements\Note.cs" />
     <Compile Include="MeiDocument.cs" />
     <Compile Include="MeiElement.cs" />
-    <Compile Include="MeiExport.cs" />
     <Compile Include="MeiImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

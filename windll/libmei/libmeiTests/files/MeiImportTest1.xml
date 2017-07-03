@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<blubb xmlns="http://github.com/annplaksin/bla" xmlns:mei="http://www.music-encoding.org/ns/mei">
+  <mei:note n="1" label="i"/>
+  <mei:note n="2" label="am"/>
+  <mei:note n="3" label="a"/>
+  <mei:note n="4" label="test"/>
+</blubb>

@@ -13,9 +13,32 @@ namespace mei.Tests
   public class MeiImportTests
   {
     [TestMethod()]
-    public void ImportDocumentTest()
+    public void ImportDocumentTest1()
     {
-      Assert.Fail();
+      MeiDocument testDoc = MeiImport.ImportDocument("..\\..\\files\\MeiImportTest1.xml");
+
+      Assert.IsNotNull(testDoc);
+    }
+
+    [TestMethod()]
+    public void ImportDocumentTest2()
+    {
+      MeiDocument testDoc = MeiImport.ImportDocument("..\\..\\files\\MeiImportTest2.xml");
+
+      Assert.IsNotNull(testDoc.SchemaLocation);
+      Assert.IsNotNull(from node in testDoc.Nodes().OfType<XProcessingInstruction>() select node.Target != "xml-model");
+    }
+
+    [TestMethod()]
+    public void ImportExportCompare()
+    {
+      XDocument xDoc = XDocument.Load("..\\..\\files\\MeiImportTest2.xml");
+      MeiDocument meiDoc = MeiImport.ImportDocument("..\\..\\files\\MeiImportTest2.xml");
+
+      string xString = xDoc.ToString();
+      string meiString = meiDoc.ToString();
+
+      Equals(xString, meiString);
     }
 
     [TestMethod()]

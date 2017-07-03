@@ -14,7 +14,7 @@ namespace mei
     /// Imports an Xml file and loads the content into Mei
     /// </summary>
     /// <param name="_filePath">Path of Xml file to import</param>
-    public static void ImportDocument(string _filePath)
+    public static MeiDocument ImportDocument(string _filePath)
     {
       XDocument doc = XDocument.Load(_filePath);
       XDeclaration xml_decl = doc.Declaration;
@@ -28,7 +28,7 @@ namespace mei
       XElement root = doc.Root;
       MeiElement convertedRoot = XmlToMei(root);
 
-      CreateMeiDocument(xml_decl, convertedRoot, schemaLocation, pIs);
+      return CreateMeiDocument(xml_decl, convertedRoot, schemaLocation, pIs);
 
     }
 
@@ -174,11 +174,13 @@ namespace mei
     /// <param name="_root">Transfomed Mei tree</param>
     /// <param name="_schemaLoc">Schema location</param>
     /// <param name="_pIs">Other processing instructions</param>
-    private static void CreateMeiDocument(XDeclaration _xmlDecl, MeiElement _root, string _schemaLoc, IEnumerable<XProcessingInstruction> _pIs)
+    private static MeiDocument CreateMeiDocument(XDeclaration _xmlDecl, MeiElement _root, string _schemaLoc, IEnumerable<XProcessingInstruction> _pIs)
     {
       MeiDocument meiDoc = new MeiDocument(_xmlDecl, _root, _schemaLoc);
 
-      meiDoc.Add(_pIs);
+      meiDoc.Root.AddBeforeSelf(_pIs);
+
+      return meiDoc;
 
     }
   }
