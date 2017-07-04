@@ -1,12 +1,13 @@
 LibMEI
 ------
 
-[![Build Status](https://travis-ci.org/DDMAL/libmei.png?branch=master)](https://travis-ci.org/DDMAL/libmei)
-
 LibMEI is a C++ library for reading and writing [MEI](http://music-encoding.org) files
 
 It is developed by the [Distributed Digital Music Archives and Libraries Lab](http://ddmal.music.mcgill.ca/)
 at the Schulich School of Music at McGill University, Montréal, Canada
+
+This version provides a C# library to use with the .NET framework (at least 4.5.2). It puts the libMEI functionality on top of the [Linq to Xml](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/linq-to-xml) interface.
+
 
 License
 -------
@@ -15,46 +16,44 @@ LibMEI is released under the MIT license.
 Compilation & Usage
 -------------------
 
-We provide an XCode project for OSX and a cmake script for Linux.
+A Visual Studio project is provided for compilation in the 'c-sharp' directory.
+The dll could be included by adding the Reference and: 
+```
+using mei;
+```
 
-To build on Linux, simply
+Basic usage of libMEI.NET is possible without including Linq to Xml, but for advanced usage it could be necessary, e.g. functional construction of attributes.
+To include Linq to Xml add:
+```
+using System.Xml.Linq;
+```
 
-    mkdir build; cd build
-    cmake ..
-    make
-    sudo make install
+Elements could be created like:
+```
+Note note1 = new Note();
+PersName name2 = new PersName("name");
+```
 
-To use libmei, include
+Attributes could be used by methods, e.g.:
+```
+note1.SetLabel("example");
+note1.HasLabel();
+note1.GetLabel();
+note1.GetLabel().Value;
+note1.RemoveLabel();
+```
 
-    #include <mei/mei.h>
-
-We provide two sample applications to demonstrate use. ```util/readmei.cpp``` is a trivial
-example of reading and writing MEI, and making a change to the document structure.
-```util/mxmltomei``` contains a tool to convert between MusicXML and MEI. This tool is
-still in active development.
-
-More detailed information about compilation and use is available at the
-libmei wiki: https://github.com/DDMAL/libmei/wiki
-
-Python
--------
-LibMEI ships with Python bindings using the Boost-Python framework. More information about installing and using
-these bindings can be found in [Installing the Python bindings](https://github.com/DDMAL/libmei/wiki/Installing-the-Python-bindings)
+To prevent a confusion with object.GetType(), the methods for @type needs to be named as GetTypeAttribute(), HasTypeAttribute(), SetTypeAttribute(), and RemoveTypeAttribute().
 
 Customization
 -------------
-One of the most useful features of the MEI specification is the ability to generate custom schemas (in RelaxNG, DTD or W3C Schema)
-containing only the music notation features that you require. For example, there is no need to validate documents written in mensural
-notation against the Common Music Notation features of MEI. Also, MEI allows you to define new customizations for musical features that
-may not be covered under the core specification. These are features inherited from the TEI project, and you can read more about
-them on the [ODD Overview Page](http://www.tei-c.org/Guidelines/Customization/odds.xml) or in [our paper about MEI and LibMEI](http://ismir2011.ismir.net/papers/OS3-1.pdf).
 
-LibMEI ships with tools that allow you to easily work with these customizations to limit or expand the functionality. In the `tools` directory
-we include a Python script, `parseschema2.py` that will generate custom code for you in either C++ or Python. (Other languages may be added as well, if requested).
+The code for mei-all 3.0.0 is included in the project. 
+To customize libMEI.NET use the Python script 'parseschema2.py' in the 'tools' directory with 'csharp' as language option on a compiled ODD file, e.g.:
+```
+python tools/parseschema2.py mei-all.xml -l csharp
+```
+I've tested the script with Python 2.7.
+Also, within the 'c-sharp' directory a 'tools.sln' is provided to use the Python script with Visual Studio.
 
-You can read more about customization and custom compiliation on our [wiki pages](https://github.com/DDMAL/libmei/wiki/Automatic-Code-Generation).
-
-Contributions
--------------
-We welcome bug reports, feature requests, and patches to the libmei project page:
-https://github.com/DDMAL/libmei
+After running the script, replace the 'atts' and 'elements' folders in 'c-sharp\libmei\libmei' with the folders in the output. It could be necessary to remove the content of the folders within the project and add them again.
