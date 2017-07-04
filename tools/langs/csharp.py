@@ -34,22 +34,22 @@ namespace mei
 
 ATT_METHODS = """#region {attNameLower}
     {ns_decl}
-    public static void Set{attNameUpper}({interfaceParamDefSet}string _val)
+    public{static} void Set{attNameUpper}({interfaceParamDefSet}string _val)
     {{
       MeiAtt_controller.SetAttribute({interfaceParamInvoke}, {attConst}, _val);
     }}
 
-    public static XAttribute Get{attNameUpper}({interfaceParamDef})
+    public{static} XAttribute Get{attNameUpper}({interfaceParamDef})
     {{
       return MeiAtt_controller.GetAttribute({interfaceParamInvoke}, {attConst});
     }}
 
-    public static bool Has{attNameUpper}({interfaceParamDef})
+    public{static} bool Has{attNameUpper}({interfaceParamDef})
     {{
       return MeiAtt_controller.HasAttribute({interfaceParamInvoke}, {attConst});
     }}
 
-    public static void Remove{attNameUpper}({interfaceParamDef})
+    public{static} void Remove{attNameUpper}({interfaceParamDef})
     {{
       MeiAtt_controller.RemoveAttribute({interfaceParamInvoke}, {attConst});
     }}
@@ -59,7 +59,7 @@ ATT_METHODS = """#region {attNameLower}
 ATTGROUP_EXTENSION_CLASS = """/// <summary>
   /// Extension methods for {attGroupName}
   /// </summary>
-  static class Att{attGroupNameUpper}_extensions
+  public static class Att{attGroupNameUpper}_extensions
   {{
     {methods}
   }}
@@ -68,7 +68,7 @@ ATTGROUP_EXTENSION_CLASS = """/// <summary>
 ATTGROUP_INTERFACE = """/// <summary>
   /// Interface for {attGroupName}
   /// </summary>
-  interface IAtt{attGroupNameUpper} : IMEiAtt{members}
+  public interface IAtt{attGroupNameUpper} : IMEiAtt{members}
   {{
 
   }}
@@ -177,23 +177,29 @@ def windll_writeAttMethods(attribute, atgroup, schema):
     interfaceParamDef = ""
     interfaceParamInvoke = ""
     interfaceParamDefSet = ""
+    static = ""
     if atgroup != "":
         interfaceParamDef = "this IAtt{0} e".format(schema.cc(schema.strpatt(atgroup)))
         interfaceParamDefSet = "this IAtt{0} e, ".format(schema.cc(schema.strpatt(atgroup)))
         interfaceParamInvoke = "e"
+        static = " static"
     else:
         interfaceParamDef = ""
         interfaceParamDefSet = ""
         interfaceParamInvoke = "this"
 
+    if att_name == "type":
+        att_name = "typeAttribute"
+
     att_strings = {
         "ns_decl" : ns_decl,
-        "attNameUpper" : schema.cc(schema.strpatt(attribute)),
+        "attNameUpper" : schema.cc(att_name) if att_name == "typeAttribute" else schema.cc(schema.strpatt(attribute)),
         "attConst" : att_const,
         "interfaceParamDef" : interfaceParamDef,
         "interfaceParamInvoke" : interfaceParamInvoke,
         "interfaceParamDefSet" : interfaceParamDefSet,
-        "attNameLower" : att_name
+        "attNameLower" : att_name,
+        "static" : static,
         }
 
     att_methods = ATT_METHODS.format(**att_strings)
@@ -259,9 +265,6 @@ def __create_att_classes(schema, outdir):
             extension_classes = ""
             interfaces = ""
 
-            if not atts:
-                continue
-
             methods = ""
 
             gp_members = windll_getAttClassMembers(schema.schema, gp)
@@ -287,8 +290,11 @@ def __create_att_classes(schema, outdir):
                 "attGroupName" : gp,
                 "members" : members
                 }
+             
+            if methods != "":
+                # if attribute class doesn't contain attributes itself, skip creation of extension class
+                extension_classes += ATTGROUP_EXTENSION_CLASS.format(**clsubstrings)
 
-            extension_classes += ATTGROUP_EXTENSION_CLASS.format(**clsubstrings)
             interfaces += ATTGROUP_INTERFACE.format(**intstrings)
 
             tplvars = {

@@ -107,8 +107,8 @@ class MeiSchema(object):
 
             group_module = group.get("module").split(".")[-1]
             attdefs = group.xpath("./tei:attList/tei:attDef", namespaces=TEI_NS)
-            if not attdefs:
-                continue
+            # if not attdefs:
+                # continue
 
             if group_module not in self.attribute_group_structure.keys():
                 self.attribute_group_structure[group_module] = {}
