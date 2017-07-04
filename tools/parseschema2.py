@@ -211,7 +211,7 @@ if __name__ == "__main__":
         print("error: You must include a compiled ODD file")
         sys.exit(1)
 
-    avail_langs = ["cpp", "python", "manuscript", "windll"]
+    avail_langs = ["cpp", "python", "manuscript", "csharp"]
     
     if not args.lang == "python":
         for l_langs in args.lang:
@@ -282,16 +282,16 @@ if __name__ == "__main__":
         if args.includes:
             java.parse_includes(output_directory, args.includes)
 
-    if "windll" in l_langs.lower():
-            import langs.windll as windll
-            output_directory = os.path.join(outdir, "windll")
+    if "csharp" in l_langs.lower():
+            import langs.csharp as csharp
+            output_directory = os.path.join(outdir, "c-sharp")
             if os.path.exists(output_directory):
                 lg.debug("Removing old C# output directory")
                 shutil.rmtree(output_directory)
             os.mkdir(output_directory)
-            windll.create(schema, output_directory)
+            csharp.create(schema, output_directory)
             if args.includes:
-                windll.parse_includes(output_directory, args.includes)
+                csharp.parse_includes(output_directory, args.includes)
 
     mei_source.close()
 
