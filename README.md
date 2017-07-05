@@ -49,7 +49,7 @@ Customization
 -------------
 
 The code for mei-all 3.0.0 is included in the project. 
-To customize libMEI.NET use the Python script 'parseschema2.py' in the `tools` directory with `csharp` as language option on a compiled ODD file, e.g.:
+To customize libMEI.NET use the Python script `parseschema2.py` in the `tools` directory with `csharp` as language option on a compiled ODD file, e.g.:
 ```
 python tools/parseschema2.py mei-all.xml -l csharp
 ```
