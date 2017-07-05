@@ -97,7 +97,7 @@ namespace mei
 }}
 """
 
-NS_DECLARATION ="""private static readonly XNamespace ns_{objectName} = "{ns}"
+NS_DECLARATION ="""private static readonly XNamespace ns_{objectName} = "{ns}";
 """
 
 ELEMENT_CONSTRUCTORS ="""{ns_decl}
@@ -132,7 +132,13 @@ def windll_getAttClassMembers(schema, group):
     if "att.id" in memberList:
         memberList.remove("att.id")
 
-    return (memberList)
+    members = []
+
+    for member in memberList:
+        if member not in members:
+            members.append(member)
+
+    return (members)
 
 def windll_getElementNS(schema, element):
     #returns non-mei namespaces
@@ -327,6 +333,7 @@ def __create_element_classes(schema, outdir):
             ns_nonmei = ""
             class_constuctors = ""
             at_methods = ""
+            interfaces = []
 
             # Look for attribute classes and attributes within elementSpec
             for attribute in atgroups:
@@ -338,7 +345,9 @@ def __create_element_classes(schema, outdir):
                         at_methods += windll_writeAttMethods(sda, "", schema)
 
                 else:
-                    at_interfaces += ", I{0}".format(schema.cc(attribute))
+                    if attribute not in interfaces:
+                        at_interfaces += ", I{0}".format(schema.cc(attribute))
+                        interfaces.append(attribute)
 
             # Build constructors
             # First, look for non-mei namespaces
