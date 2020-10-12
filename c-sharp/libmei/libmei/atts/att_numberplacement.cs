@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+/////////////////////////////////////////////////////////////////////////////
+// Authors:     Anna Plaksin
+// Created:     2017
+// Copyright (c) Authors and others. All rights reserved.
+//
+// Code generated using a modified version of libmei
+// by Andrew Hankinson, Alastair Porter, and Others
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// NOTE: this file was generated with the Verovio libmei version and
+// should not be edited because changes will be lost.
+/////////////////////////////////////////////////////////////////////////////
+
+namespace mei
+{
+    /// <summary>
+  /// Interface for att.numberplacement
+  /// </summary>
+  public interface IAttNumberplacement : IMEiAtt
+  {
+
+  }
+
+
+    /// <summary>
+  /// Extension methods for att.numberplacement
+  /// </summary>
+  public static class AttNumberplacement_extensions
+  {
+    #region num.place
+    
+    public static void SetNumPlace(this IAttNumberplacement e, string _val)
+    {
+      MeiAtt_controller.SetAttribute(e, "num.place", _val);
+    }
+
+    public static XAttribute GetNumPlace(this IAttNumberplacement e)
+    {
+      return MeiAtt_controller.GetAttribute(e, "num.place");
+    }
+
+    public static bool HasNumPlace(this IAttNumberplacement e)
+    {
+      return MeiAtt_controller.HasAttribute(e, "num.place");
+    }
+
+    public static void RemoveNumPlace(this IAttNumberplacement e)
+    {
+      MeiAtt_controller.RemoveAttribute(e, "num.place");
+    }
+    #endregion
+
+    #region num.visible
+    
+    public static void SetNumVisible(this IAttNumberplacement e, string _val)
+    {
+      MeiAtt_controller.SetAttribute(e, "num.visible", _val);
+    }
+
+    public static XAttribute GetNumVisible(this IAttNumberplacement e)
+    {
+      return MeiAtt_controller.GetAttribute(e, "num.visible");
+    }
+
+    public static bool HasNumVisible(this IAttNumberplacement e)
+    {
+      return MeiAtt_controller.HasAttribute(e, "num.visible");
+    }
+
+    public static void RemoveNumVisible(this IAttNumberplacement e)
+    {
+      MeiAtt_controller.RemoveAttribute(e, "num.visible");
+    }
+    #endregion
+
+  }
+
+}

@@ -27,3 +27,17 @@ pymei.egg-info
 libmei.js
 a.out
 emscripten/node_modules
+*.tlog
+c-sharp/libmei/libmei/obj/
+.vs/
+/tools/includes/vrv
+/tools/output
+/tools/langs/cplusplus_vrv.py
+/tools/mei-Mensural_sourceEncoding.xml
+/tools/mei-Mensural.xml
+/c-sharp/libmei/packages
+/c-sharp/libmei/libmei/bin/Debug
+/c-sharp/libmei/libmei/obj/Debug
+/c-sharp/libmei/libmeiTests/bin/Debug
+/c-sharp/libmei/libmeiTests/obj/Debug
+/c-sharp/libmei/TestResults
