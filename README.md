@@ -38,12 +38,11 @@ Attributes could be used by methods, e.g.:
 ```
 note1.SetLabel("example");
 note1.HasLabel();
-note1.GetLabel();
-note1.GetLabel().Value;
+note1.GetLabelAttribute();
+note1.GetLabelValue();
 note1.RemoveLabel();
 ```
 
-To prevent a confusion with object.GetType(), the methods for @type needs to be named as GetTypeAttribute(), HasTypeAttribute(), SetTypeAttribute(), and RemoveTypeAttribute().
 
 Customization
 -------------
@@ -53,7 +52,7 @@ To customize libMEI.NET use the Python script `parseschema2.py` in the `tools` d
 ```
 python tools/parseschema2.py mei-all.xml -l csharp
 ```
-I've tested the script with Python 2.7.
+I've tested the script with Python 3.7.
 Also, within the `c-sharp` directory a `tools.sln` is provided to use the Python script with Visual Studio.
 
-After running the script, replace the `atts` and `elements` folders in `c-sharp\libmei\libmei` with the folders in the output. It could be necessary to remove the content of the folders within the project and add them again.
+After running the script, replace the `atts` and `elements` folders in `c-sharp\libmei\libmei` with the folders in the output. It will be necessary to remove the content of the folders within the project and add them again.
